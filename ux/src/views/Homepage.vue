@@ -662,3 +662,18 @@
 
   </div>
 </template>
+
+<script>
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap'
+
+import $ from 'jquery'
+window.$ = window.jQuery = $
+
+import '@/assets/js/tether.min.js'
+import '@/assets/js/jquery.magnific-popup.min.js'
+import '@/assets/js/hero-slider-main.js'
+
+export default {}
+</script>
+
