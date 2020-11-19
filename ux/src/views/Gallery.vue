@@ -49,161 +49,161 @@
                   <!-- Gallery One pop up connected with JS code below -->
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-01-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-01-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Image <span><strong>One</strong></span></h2>
                         <p class="tm-figure-description">Set true or false in HTML script tag for this page black and white.</p>
-                        <a href="img/tm-img-01.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-01.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-02-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-02-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Image <span><strong>Two</strong></span></h2>
                         <p class="tm-figure-description">Set true or false in HTML page line number 40 to turn on off page color.</p>
-                        <a href="img/tm-img-02.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-02.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-03-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-03-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Image <span><strong>Three</strong></span></h2>
                         <p class="tm-figure-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        <a href="img/tm-img-03.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-03.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-04-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-04-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Image <span><strong>Four</strong></span></h2>
                         <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in sapien.</p>
-                        <a href="img/tm-img-04.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-04.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-05-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-05-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Image <span><strong>Five</strong></span></h2>
                         <p class="tm-figure-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        <a href="img/tm-img-05.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-05.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-06-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-06-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Image <span><strong>Six</strong></span></h2>
                         <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in sapien.</p>
-                        <a href="img/tm-img-06.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-06.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-07-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-07-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Image <span><strong>Seven</strong></span></h2>
                         <p class="tm-figure-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        <a href="img/tm-img-07.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-07.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-08-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-08-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Image <span><strong>Eight</strong></span></h2>
                         <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in sapien.</p>
-                        <a href="img/tm-img-08.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-08.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-09-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-09-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Image <span><strong>Nine</strong></span></h2>
                         <p class="tm-figure-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        <a href="img/tm-img-09.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-09.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-10-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-10-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Image <span><strong>Ten</strong></span></h2>
                         <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in sapien.</p>
-                        <a href="img/tm-img-10.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-10.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-11-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-11-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Image <span><strong>Eleven</strong></span></h2>
                         <p class="tm-figure-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        <a href="img/tm-img-11.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-11.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-12-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-12-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Image <span><strong>Twelve</strong></span></h2>
                         <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in sapien.</p>
-                        <a href="img/tm-img-12.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-12.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-13-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-13-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Image <span><strong>Thirteen</strong></span></h2>
                         <p class="tm-figure-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        <a href="img/tm-img-13.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-13.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-14-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-14-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Image <span><strong>Fourteen</strong></span></h2>
                         <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in sapien.</p>
-                        <a href="img/tm-img-14.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-14.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-15-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-15-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Image <span><strong>Fifteen</strong></span></h2>
                         <p class="tm-figure-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        <a href="img/tm-img-15.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-15.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-16-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-16-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Image <span><strong>Sixteen</strong></span></h2>
                         <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in sapien.</p>
-                        <a href="img/tm-img-16.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-16.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
@@ -223,161 +223,161 @@
 
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-12-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-12-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Pix <span><strong>One</strong></span></h2>
                         <p class="tm-figure-description">Suspendisse id placerat risus. Mauris quis luctus risus.</p>
-                        <a href="img/tm-img-12.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-12.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-11-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-11-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Pix <span><strong>Two</strong></span></h2>
                         <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in sapien.</p>
-                        <a href="img/tm-img-11.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-11.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-10-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-10-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Pix <span><strong>Three</strong></span></h2>
                         <p class="tm-figure-description">Suspendisse id placerat risus. Mauris quis luctus risus.</p>
-                        <a href="img/tm-img-10.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-10.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-09-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-09-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Pix <span><strong>Four</strong></span></h2>
                         <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in sapien.</p>
-                        <a href="img/tm-img-09.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-09.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-08-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-08-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Pix <span><strong>Five</strong></span></h2>
                         <p class="tm-figure-description">Suspendisse id placerat risus. Mauris quis luctus risus.</p>
-                        <a href="img/tm-img-08.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-08.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-07-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-07-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Pix <span><strong>Six</strong></span></h2>
                         <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in sapien.</p>
-                        <a href="img/tm-img-07.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-07.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-06-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-06-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Pix <span><strong>Seven</strong></span></h2>
                         <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in sapien.</p>
-                        <a href="img/tm-img-06.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-06.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-05-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-05-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Pix <span><strong>Eight</strong></span></h2>
                         <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in sapien.</p>
-                        <a href="img/tm-img-05.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-05.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-04-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-04-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Pix <span><strong>Nine</strong></span></h2>
                         <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in sapien.</p>
-                        <a href="img/tm-img-04.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-04.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-03-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-03-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Pix <span><strong>Ten</strong></span></h2>
                         <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in sapien.</p>
-                        <a href="img/tm-img-03.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-03.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-02-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-02-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Pix <span><strong>Eleven</strong></span></h2>
                         <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in sapien.</p>
-                        <a href="img/tm-img-02.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-02.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-01-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-01-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Pix <span><strong>Twelve</strong></span></h2>
                         <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in sapien.</p>
-                        <a href="img/tm-img-01.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-01.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-13-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-13-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Pix <span><strong>13</strong></span></h2>
                         <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in sapien.</p>
-                        <a href="img/tm-img-13.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-13.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-14-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-14-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Pix <span><strong>14</strong></span></h2>
                         <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in sapien.</p>
-                        <a href="img/tm-img-14.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-14.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-15-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-15-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Pix <span><strong>15</strong></span></h2>
                         <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in sapien.</p>
-                        <a href="img/tm-img-15.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-15.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-16-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-16-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Pix <span><strong>16</strong></span></h2>
                         <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in sapien.</p>
-                        <a href="img/tm-img-16.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-16.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
@@ -397,121 +397,121 @@
 
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-07-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-07-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Photo <span><strong>1</strong></span></h2>
                         <p class="tm-figure-description">Suspendisse id placerat risus. Mauris quis luctus risus.</p>
-                        <a href="img/tm-img-07.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-07.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-16-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-16-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Photo <span><strong>2</strong></span></h2>
                         <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in sapien.</p>
-                        <a href="img/tm-img-16.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-16.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-02-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-02-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Photo <span><strong>3</strong></span></h2>
                         <p class="tm-figure-description">Suspendisse id placerat risus. Mauris quis luctus risus.</p>
-                        <a href="img/tm-img-02.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-02.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-15-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-15-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Photo <span><strong>4</strong></span></h2>
                         <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in sapien.</p>
-                        <a href="img/tm-img-15.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-15.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-03-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-03-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Photo <span><strong>5</strong></span></h2>
                         <p class="tm-figure-description">Suspendisse id placerat risus. Mauris quis luctus risus.</p>
-                        <a href="img/tm-img-03.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-03.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-14-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-14-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Photo <span><strong>6</strong></span></h2>
                         <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in sapien.</p>
-                        <a href="img/tm-img-14.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-14.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-04-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-04-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Photo <span><strong>7</strong></span></h2>
                         <p class="tm-figure-description">Suspendisse id placerat risus. Mauris quis luctus risus.</p>
-                        <a href="img/tm-img-04.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-04.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-13-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-13-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Photo <span><strong>8</strong></span></h2>
                         <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in sapien.</p>
-                        <a href="img/tm-img-13.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-13.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-05-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-05-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Photo <span><strong>9</strong></span></h2>
                         <p class="tm-figure-description">Suspendisse id placerat risus. Mauris quis luctus risus.</p>
-                        <a href="img/tm-img-05.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-05.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-12-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-12-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Photo <span><strong>10</strong></span></h2>
                         <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in sapien.</p>
-                        <a href="img/tm-img-12.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-12.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-06-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-06-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Photo <span><strong>11</strong></span></h2>
                         <p class="tm-figure-description">Suspendisse id placerat risus. Mauris quis luctus risus.</p>
-                        <a href="img/tm-img-06.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-06.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
                   <div class="grid-item">
                     <figure class="effect-sadie">
-                      <img src="img/tm-img-11-tn.jpg" alt="Image" class="img-fluid tm-img">
+                      <img src="@/assets/img/tm-img-11-tn.jpg" alt="Image" class="img-fluid tm-img">
                       <figcaption>
                         <h2 class="tm-figure-title">Photo <span><strong>12</strong></span></h2>
                         <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in sapien.</p>
-                        <a href="img/tm-img-11.jpg">View more</a>
+                        <a href="@/assets/img/tm-img-11.jpg">View more</a>
                       </figcaption>
                     </figure>
                   </div>
@@ -674,6 +674,102 @@ import '@/assets/js/tether.min.js'
 import '@/assets/js/jquery.magnific-popup.min.js'
 import '@/assets/js/hero-slider-main.js'
 
-export default {}
+export default {
+  mounted() {
+    const tm_gray_site = false
+
+    if (tm_gray_site) {
+      $('html').addClass('gray')
+    } else {
+      $('html').removeClass('gray')
+    }
+  },
+  created() {
+    /*
+        Everything is loaded including images.
+    */
+    this.adjustHeightOfPage(1) // Adjust page height
+
+    const _this = this
+    this.$nextTick(function() {
+      /* Gallery One pop up
+      -----------------------------------------*/
+      $('.gallery-one').magnificPopup({
+        delegate: 'a', // child items selector, by clicking on it popup will open
+        type: 'image',
+        gallery: { enabled: true }
+      })
+
+      /* Gallery Two pop up
+                -----------------------------------------*/
+      $('.gallery-two').magnificPopup({
+        delegate: 'a',
+        type: 'image',
+        gallery: { enabled: true }
+      })
+
+      /* Gallery Three pop up
+        -----------------------------------------*/
+      $('.gallery-three').magnificPopup({
+        delegate: 'a',
+        type: 'image',
+        gallery: { enabled: true }
+      })
+
+      /* Collapse menu after click
+        -----------------------------------------*/
+      $('#tmNavbar a').click(function() {
+        $('#tmNavbar').collapse('hide')
+
+        _this.adjustHeightOfPage($(this).data('no')) // Adjust page height
+      })
+
+      /* Browser resized
+        -----------------------------------------*/
+      $(window).resize(function() {
+        const currentPageNo = $('.cd-hero-slider li.selected .js-tm-page-content').data('page-no')
+
+        // wait 3 seconds
+        setTimeout(function() {
+          _this.adjustHeightOfPage(currentPageNo)
+        }, 1000)
+      })
+
+      // Remove preloader (https://ihatetomatoes.net/create-custom-preloading-screen/)
+      $('body').addClass('loaded')
+
+      // Write current year in copyright text.
+      $('.tm-copyright-year').text(new Date().getFullYear())
+    })
+  },
+  methods: {
+    adjustHeightOfPage(pageNo) {
+      let pageContentHeight = 0
+
+      const pageType = $('div[data-page-no="' + pageNo + '"]').data('page-type')
+
+      if (pageType !== undefined && pageType === 'gallery') {
+        pageContentHeight = $('.cd-hero-slider li:nth-of-type(' + pageNo + ') .tm-img-gallery-container').height()
+      } else {
+        pageContentHeight = $('.cd-hero-slider li:nth-of-type(' + pageNo + ') .js-tm-page-content').height() + 20
+      }
+
+      // Get the page height
+      const totalPageHeight = $('.cd-slider-nav').height() +
+      pageContentHeight +
+      $('.tm-footer').outerHeight()
+
+      // Adjust layout based on page height and window height
+      if (totalPageHeight > $(window).height()) {
+        $('.cd-hero-slider').addClass('small-screen')
+        $('.cd-hero-slider li:nth-of-type(' + pageNo + ')').css('min-height', totalPageHeight + 'px')
+      } else {
+        $('.cd-hero-slider').removeClass('small-screen')
+        $('.cd-hero-slider li:nth-of-type(' + pageNo + ')').css('min-height', '100%')
+      }
+    }
+
+  }
+}
 </script>
 
