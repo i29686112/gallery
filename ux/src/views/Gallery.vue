@@ -664,15 +664,15 @@
 </template>
 
 <script>
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap'
-
 import $ from 'jquery'
 window.$ = window.jQuery = $
 
 import '@/assets/js/tether.min.js'
-import '@/assets/js/jquery.magnific-popup.min.js'
+
+// bootstrap的css在index.scss引用了
+import 'bootstrap'
 import '@/assets/js/hero-slider-main.js'
+import '@/assets/js/jquery.magnific-popup.min.js'
 
 export default {
   mounted() {
