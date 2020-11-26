@@ -10,9 +10,9 @@ class Film extends Model
     use HasFactory;
 
 
-
     protected $fillable = [
-        'name'
+        'name',
+        'key_name',
     ];
 
 }

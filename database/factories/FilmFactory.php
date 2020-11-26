@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Models\Film;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 class FilmFactory extends Factory
 {
@@ -23,7 +22,8 @@ class FilmFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name
+            'name' => $this->faker->name,
+            'key_name' => $this->faker->name,
         ];
     }
 }

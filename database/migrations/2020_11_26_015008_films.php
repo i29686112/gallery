@@ -16,7 +16,8 @@ class Films extends Migration
         //
         Schema::create('films', function (Blueprint $table) {
             $table->id();
-            $table->string('name',100)->unique()->comment('底片名稱');
+            $table->string('name', 100)->unique()->comment('底片名稱');
+            $table->string('key_name', 100)->unique()->comment('底片名稱(配對關鍵字用)');
             $table->timestamps();
         });
     }
@@ -32,3 +33,4 @@ class Films extends Migration
         Schema::dropIfExists('films');
     }
 }
+
