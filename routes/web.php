@@ -1,8 +1,7 @@
 <?php
 
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\TelegramController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,9 +20,7 @@ Route::get('/', function () {
 });
 
 
-Route::post('/telegram', function (Request $request) {
-    log::info($request->all());
-    return 'ok';
-});
+Route::post('/telegram', [TelegramController::class, 'index']);
 
 
+Route::get('/telegram', [TelegramController::class, 'hello']);

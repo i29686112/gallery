@@ -18,6 +18,7 @@ class TelegramServiceProvider extends ServiceProvider
         //
         $this->app->singleton(Telegram::class, function ($app) {
 
+
             $telegram = new Telegram(env("TELEGRAM_BOT_API_KEY"), env("TELEGRAM_BOT_USERNAME"));
 
 
