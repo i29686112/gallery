@@ -30,3 +30,5 @@ Route::post('/telegram', function (Request $request) {
     log::info($request->all());
     return 'ok';
 });
+
+
