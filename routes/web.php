@@ -20,11 +20,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/telegram', function (Request $request) {
-    //log::info($request->all());
-    return 'test ok';
-});
-
 
 Route::post('/telegram', function (Request $request) {
     log::info($request->all());
