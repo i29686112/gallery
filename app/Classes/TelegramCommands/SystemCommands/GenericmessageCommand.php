@@ -11,7 +11,11 @@
 
 namespace App\Classes\SystemCommands;
 
+use App\Exceptions\CaptionNotSetException;
+use App\Exceptions\FileIdNotSetException;
+use App\Exceptions\PhotoNotFoundException;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Log;
 use Longman\TelegramBot\Commands\SystemCommand;
 use Longman\TelegramBot\Entities\ServerResponse;
 use Longman\TelegramBot\Exception\TelegramException;
@@ -86,6 +90,8 @@ class GenericmessageCommand extends SystemCommand
         $message = $this->getMessage();
         $chatId = $message->getChat()->getId();
 
+        $responseText = 'Some problem happens while get photo size, please send it again';
+
         if ($message->getType() === 'photo' && $photos = $message->getPhoto())
         {
             $caption = $message->getProperty('caption');
@@ -93,30 +99,58 @@ class GenericmessageCommand extends SystemCommand
 
             if (isset($photos[0]))
             {
-
-                $fileId = $photos[0]->getFileId();
-
-
                 if ($mediaGroupId)
                 {
                     $caption = $this->handleMultiplePhoto($caption, $mediaGroupId);
                 }
 
-                $filePath = $this->getFilePathByFileId($fileId);
+                try
+                {
+                    if ( ! $caption)
+                    {
+                        throw new CaptionNotSetException();
+                    }
+                    $fileId = $photos[0]->getFileId();
+                    if ( ! $fileId)
+                    {
+                        throw new FileIdNotSetException();
+                    }
 
-                return Request::sendMessage([
-                    'chat_id' => $chatId,
-                    'text' => 'Cool, we got your photo with caption:' . $caption,
-                ]);
+                    $filePath = $this->getFilePathByFileId($fileId);
+                    $file = $this->getFileByFilePath($filePath);
+
+                    if ( ! $file)
+                    {
+                        throw new PhotoNotFoundException();
+                    }
+
+
+                    $responseText = 'Cool, we got your photo with caption:' . $caption;
+
+
+                } catch (CaptionNotSetException $e)
+                {
+                    $responseText = 'Please write a film name for the photo';
+
+                } catch (FileIdNotSetException $e)
+                {
+
+                    $responseText = 'Some problem happens while get photo id, please send it again';
+
+                } catch (PhotoNotFoundException $e)
+                {
+                    $responseText = 'Some problem happens while get photo file, please send it again';
+
+                }
 
             }
 
         } else
         {
-            return Request::sendMessage(['chat_id' => $chatId, 'text' => 'Please send a photo']);
+            $responseText = 'Please send a photo';
         }
-        //$user_id = $message->getFrom()->getId();
 
+        return Request::sendMessage(['chat_id' => $chatId, 'text' => $responseText]);
 
     }
 
@@ -166,9 +200,50 @@ class GenericmessageCommand extends SystemCommand
         /** @var Client $http */
         $http = resolve('GuzzleHttp\Client');
         //https://api.telegram.org/bot1499930220:AAFlvI__hozB3ImiUaiPvrERdDdA7SpXXWM/getFile?file_id=AgACAgUAAxkBAAMeX79pzqco8f8zpaqVEF9GSpFGeiYAAnSrMRs3KwABVl9n6W5MszNoBEgkbXQAAwEAAwIAA3gAA94AAQEAAR4E
-        $response = $http->get(env('TELEGRAM_BOT_API_URL') . env('TELEGRAM_BOT_API_KEY') . '/getFile?file_id=' . $fileId);
-        $contents = json_decode($response->getBody()->getContents());
-        return (isset($contents->result->file_path) && $contents->result->file_path !== '') ? $contents->result->file_path : false;
+
+        try
+        {
+            $response = $http->get(env('TELEGRAM_BOT_API_URL') . 'bot' . env('TELEGRAM_BOT_API_KEY') . '/getFile?file_id=' . $fileId);
+            $contents = json_decode($response->getBody()->getContents());
+            return (isset($contents->result->file_path) && $contents->result->file_path !== '') ? $contents->result->file_path : false;
+        } catch (\Exception $e)
+        {
+            log::error(exceptionToString($e));
+        }
+        return false;
+
+    }
+
+    private function getFileByFilePath($filePath)
+    {
+
+        if ( ! $filePath)
+        {
+            return false;
+        }
+
+
+        /** @var Client $http */
+        $http = resolve('GuzzleHttp\Client');
+        //https://api.telegram.org/file/bot1499930220:AAFlvI__hozB3ImiUaiPvrERdDdA7SpXXWM/photos/file_1.jpg
+
+        try
+        {
+
+            $response = $http->request('get',
+                env('TELEGRAM_BOT_API_URL') . 'file/bot' . env('TELEGRAM_BOT_API_KEY') . '/' . $filePath,
+                [
+                    'sink' => storage_path('test' . mt_rand(0, 1000) . '.jpg'),
+                ]);
+
+            return $response;
+        } catch (\Exception $e)
+        {
+            log::error(exceptionToString($e));
+
+        }
+        return false;
     }
 }
+
 
