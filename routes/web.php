@@ -24,3 +24,11 @@ Route::post('/telegram', [TelegramController::class, 'index']);
 
 
 Route::get('/telegram', [TelegramController::class, 'hello']);
+
+if (env('APP_ENV') === 'local')
+{
+    Route::get('/test', function () {
+        phpinfo();
+    });
+}
+

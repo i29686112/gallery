@@ -9,9 +9,8 @@
  * file that was distributed with this source code.
  */
 
-namespace Longman\TelegramBot\Commands\SystemCommands;
+namespace App\Classes\SystemCommands;
 
-use Illuminate\Support\Facades\Log;
 use Longman\TelegramBot\Commands\SystemCommand;
 use Longman\TelegramBot\Entities\ServerResponse;
 use Longman\TelegramBot\Exception\TelegramException;
@@ -85,11 +84,23 @@ class GenericmessageCommand extends SystemCommand
         $message = $this->getMessage();
         $chatId = $message->getChat()->getId();
 
-        if ($photos = $message->getPhoto())
+        if ($message->getType() === 'photo' && $photos = $message->getPhoto())
         {
             if (isset($photos[0]))
             {
-                log::info($photos[0]->getFileId());
+                if ($message->getProperty('media_group_id') && $message->getProperty('caption'))
+                {
+
+
+                }
+                $fileId = $photos[0]->getFileId();
+
+
+                return Request::sendMessage([
+                    'chat_id' => $chatId,
+                    'text' => 'Cool, we got your photo with caption:' . $message->getProperty('caption'),
+                ]);
+
             }
 
         } else
