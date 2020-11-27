@@ -11,6 +11,7 @@
 
 namespace Longman\TelegramBot\Commands\SystemCommands;
 
+use Illuminate\Support\Facades\Log;
 use Longman\TelegramBot\Commands\SystemCommand;
 use Longman\TelegramBot\Entities\ServerResponse;
 use Longman\TelegramBot\Exception\TelegramException;
@@ -51,7 +52,8 @@ class GenericmessageCommand extends SystemCommand
     public function executeNoDb()
     {
         // Try to execute any deprecated system commands.
-        if (self::$execute_deprecated && $deprecated_system_command_response = $this->executeDeprecatedSystemCommand()) {
+        if (self::$execute_deprecated && $deprecated_system_command_response = $this->executeDeprecatedSystemCommand())
+        {
             return $deprecated_system_command_response;
         }
 
@@ -66,16 +68,36 @@ class GenericmessageCommand extends SystemCommand
      */
     public function execute()
     {
+        // non-command message will be execute the block
         // Try to continue any active conversation.
-        if ($active_conversation_response = $this->executeActiveConversation()) {
+        if ($active_conversation_response = $this->executeActiveConversation())
+        {
             return $active_conversation_response;
         }
 
         // Try to execute any deprecated system commands.
-        if (self::$execute_deprecated && $deprecated_system_command_response = $this->executeDeprecatedSystemCommand()) {
+        if (self::$execute_deprecated && $deprecated_system_command_response = $this->executeDeprecatedSystemCommand())
+        {
             return $deprecated_system_command_response;
         }
 
-        return Request::emptyResponse();
+
+        $message = $this->getMessage();
+        $chatId = $message->getChat()->getId();
+
+        if ($photos = $message->getPhoto())
+        {
+            if (isset($photos[0]))
+            {
+                log::info($photos[0]->getFileId());
+            }
+
+        } else
+        {
+            return Request::sendMessage(['chat_id' => $chatId, 'text' => 'Please send a photo']);
+        }
+        //$user_id = $message->getFrom()->getId();
+
+
     }
 }

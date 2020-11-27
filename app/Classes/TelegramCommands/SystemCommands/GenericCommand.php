@@ -12,6 +12,9 @@
 namespace Longman\TelegramBot\Commands\SystemCommands;
 
 use Longman\TelegramBot\Commands\SystemCommand;
+use Longman\TelegramBot\Entities\ServerResponse;
+use Longman\TelegramBot\Exception\TelegramException;
+use Longman\TelegramBot\Request;
 
 /**
  * Generic command
@@ -32,4 +35,20 @@ class GenericCommand extends SystemCommand
      * @var string
      */
     protected $version = '1.1.0';
+
+    /**
+     * Execute command
+     *
+     * @return ServerResponse
+     * @throws TelegramException
+     */
+    public function execute()
+    {
+        // 一般文字訊息的回應
+
+        $message = $this->getMessage();
+        $chatId = $message->getChat()->getId();
+
+        return Request::sendMessage(['chat_id' => $chatId, 'text' => 'Please enter a command or send a photo']);
+    }
 }

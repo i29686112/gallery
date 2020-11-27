@@ -49,7 +49,6 @@ class StartCommand extends UserCommand
     {
         $message = $this->getMessage();
         $chatId = $message->getChat()->getId();
-        //$user_id = $message->getFrom()->getId();
 
         return Request::sendMessage(['chat_id' => $chatId, 'text' => 'hi']);
 
