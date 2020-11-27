@@ -91,6 +91,7 @@ class GenericmessageCommand extends SystemCommand
                 if ($message->getProperty('media_group_id') && $message->getProperty('caption'))
                 {
 
+                    $redis = resolve('Redis');
 
                 }
                 $fileId = $photos[0]->getFileId();

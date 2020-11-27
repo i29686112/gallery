@@ -15,7 +15,8 @@
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
         "longman/telegram-bot": "^0.64.0",
-        "ext-json": "*"
+        "ext-json": "*",
+        "ext-redis": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

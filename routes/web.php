@@ -30,5 +30,21 @@ if (env('APP_ENV') === 'local')
     Route::get('/test', function () {
         phpinfo();
     });
+
+    Route::get('/redis', function () {
+        /** @var Redis $redis */
+        $redis = resolve('Redis');
+        $testKey = 'abcd';
+
+        $redis->set($testKey, '1234');
+
+        $testResult = $redis->get('abcde');
+
+        $redis->del($testKey);
+        return $testResult;
+
+    });
+
 }
+
 
