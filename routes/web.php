@@ -32,13 +32,14 @@ if (env('APP_ENV') === 'local')
     });
 
     Route::get('/redis', function () {
+
         /** @var Redis $redis */
         $redis = resolve('Redis');
         $testKey = 'abcd';
 
         $redis->set($testKey, '1234');
 
-        $testResult = $redis->get('abcde');
+        $testResult = $redis->get($testKey);
 
         $redis->del($testKey);
         return $testResult;
