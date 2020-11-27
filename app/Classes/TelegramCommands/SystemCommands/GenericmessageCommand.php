@@ -14,6 +14,7 @@ namespace App\Classes\SystemCommands;
 use App\Exceptions\CaptionNotSetException;
 use App\Exceptions\FileIdNotSetException;
 use App\Exceptions\PhotoNotFoundException;
+use Faker;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
 use Longman\TelegramBot\Commands\SystemCommand;
@@ -165,9 +166,9 @@ class GenericmessageCommand extends SystemCommand
         /** @var Redis $redis */
         $redis = resolve('Redis');
 
-        // only set when the key is not exist, and it will auto deleted after 1 min
+        // only set when the key is not exist, and it will auto deleted after 5 min
         $redis->set($mediaGroupId, $caption,
-            ['NX', 'EX' => 60]);
+            ['NX', 'EX' => 5 * 60]);
 
     }
 
@@ -231,12 +232,18 @@ class GenericmessageCommand extends SystemCommand
         {
 
             $response = $http->request('get',
-                env('TELEGRAM_BOT_API_URL') . 'file/bot' . env('TELEGRAM_BOT_API_KEY') . '/' . $filePath,
-                [
-                    'sink' => storage_path('test' . mt_rand(0, 1000) . '.jpg'),
-                ]);
+                env('TELEGRAM_BOT_API_URL') . 'file/bot' . env('TELEGRAM_BOT_API_KEY') . '/' . $filePath);
 
-            return $response;
+
+            if ($response->getStatusCode() === 200 && $response->getBody()->getSize() > 0)
+            {
+                $faker = Faker\Factory::create();
+                return file_put_contents(storage_path('app/public/photos/' . $faker->word . date('Y-m-d-H-i-s') . '.jpg'),
+                    $response->getBody()->getContents(),
+                    LOCK_EX);
+            }
+
+            return false;
         } catch (\Exception $e)
         {
             log::error(exceptionToString($e));
