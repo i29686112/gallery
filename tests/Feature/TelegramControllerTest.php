@@ -82,5 +82,29 @@ class TelegramControllerTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function testSendOneUnCompressPhoto()
+    {
+        // un compress photo will be a document type data, not photo
+
+        $updateId = mt_rand(1, 10000);
+        $messageId = mt_rand(1, 1000);
+
+        $rawContent = '{    "update_id": ' . $updateId . ',    "message": {        "message_id": ' . $messageId . ',        "from": {            "id": 227278637,            "is_bot": false,            "first_name": "Ian",            "last_name": "Chiang",            "username": "Ianixn",            "language_code": "zh-hans"        },        "chat": {            "id": 227278637,            "first_name": "Ian",            "last_name": "Chiang",            "username": "Ianixn",            "type": "private"        },        "date": 1606707118,        "document": {            "file_name": "未命名.png",            "mime_type": "image/png",            "thumb": {                "file_id": "AAMCBQADGQEAA5tfxGeu5r9i6cgqTbta3Xb4-OvOcAACZwEAAm8UIFYPsJ9YrYSf5gZ6G250AAMBAAdtAAMKjAACHgQ",                "file_unique_id": "AQADBnobbnQAAwqMAAI",                "file_size": 4750,                "width": 320,                "height": 165            },            "file_id": "BQACAgUAAxkBAAObX8Rnrua_YunIKk27Wt12-PjrznAAAmcBAAJvFCBWD7CfWK2En-YeBA",            "file_unique_id": "AgADZwEAAm8UIFY",            "file_size": 156939        },        "caption": "abvdc"    }}';
+
+        $response = $this->call(
+            'POST',
+            '/telegram',
+            [],
+            [],
+            [],
+            $headers = [
+                'HTTP_CONTENT_LENGTH' => mb_strlen($rawContent, '8bit'),
+                'CONTENT_TYPE' => 'application/json',
+            ],
+            $rawContent);
+
+        $response->assertStatus(200);
+    }
+
 
 }

@@ -9,7 +9,7 @@ if ( ! function_exists('getRandomFileName'))
 
         $now = DateTime::createFromFormat('U.u', microtime(true));
 
-        return $faker->word . '-' . $now->format("u-Y-m-d-H-i-s");
+        return $faker->word . '-' . $now->format("u-Y-m-d-H-i-s") . '.jpg';
     }
 
 }

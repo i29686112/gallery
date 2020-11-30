@@ -77,7 +77,7 @@ class GenericmessageCommand extends SystemCommand
     public function execute()
     {
 
-        if ($response = $this->handleActiveConversationResponseOrDeprecatedSystemCommandResponse())
+        if ($response = $this->handleActiveConversationOrDeprecatedSystemCommand())
         {
             return $response;
         }
@@ -90,6 +90,7 @@ class GenericmessageCommand extends SystemCommand
 
         if ($message->getType() === 'photo' && $photos = $message->getPhoto())
         {
+
             $caption = $message->getProperty('caption');
             $mediaGroupId = $message->getProperty('media_group_id');
 
@@ -106,7 +107,7 @@ class GenericmessageCommand extends SystemCommand
                     {
                         throw new CaptionNotSetException();
                     }
-                    $fileId = $photos[0]->getFileId();
+                    $fileId = $photos[(count($photos) - 1)]->getFileId();
                     if ( ! $fileId)
                     {
                         throw new FileIdNotSetException();
@@ -287,7 +288,7 @@ class GenericmessageCommand extends SystemCommand
         return false;
     }
 
-    private function handleActiveConversationResponseOrDeprecatedSystemCommandResponse()
+    private function handleActiveConversationOrDeprecatedSystemCommand()
     {
 
         // non-command message will be execute the block
