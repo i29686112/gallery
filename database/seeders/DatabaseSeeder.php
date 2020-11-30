@@ -13,9 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
         $this->call(FilmSeeder::class);
-
-
+        $this->call(SavedPhotoSeeder::class);
     }
 }

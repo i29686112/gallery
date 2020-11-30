@@ -14,8 +14,10 @@ namespace App\Classes\SystemCommands;
 use App\Exceptions\CaptionNotSetException;
 use App\Exceptions\FileIdNotSetException;
 use App\Exceptions\PhotoNotFoundException;
-use Faker;
+use App\Exceptions\SavePhotoToServerFailedException;
+use Exception;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Facades\Log;
 use Longman\TelegramBot\Commands\SystemCommand;
 use Longman\TelegramBot\Entities\ServerResponse;
@@ -74,17 +76,10 @@ class GenericmessageCommand extends SystemCommand
      */
     public function execute()
     {
-        // non-command message will be execute the block
-        // Try to continue any active conversation.
-        if ($active_conversation_response = $this->executeActiveConversation())
-        {
-            return $active_conversation_response;
-        }
 
-        // Try to execute any deprecated system commands.
-        if (self::$execute_deprecated && $deprecated_system_command_response = $this->executeDeprecatedSystemCommand())
+        if ($response = $this->handleActiveConversationResponseOrDeprecatedSystemCommandResponse())
         {
-            return $deprecated_system_command_response;
+            return $response;
         }
 
 
@@ -118,12 +113,18 @@ class GenericmessageCommand extends SystemCommand
                     }
 
                     $filePath = $this->getFilePathByFileId($fileId);
-                    $file = $this->getFileByFilePath($filePath);
+                    $savedFileName = $this->getFileByFilePathAndGetSavedFileName($filePath);
 
-                    if ( ! $file)
+                    if ($savedFileName === false)
                     {
                         throw new PhotoNotFoundException();
                     }
+
+                    //
+                    $fileName = $this->getFileNameFromCaption();
+
+                    // save photo to db
+                    $this->parseFileNameFromCaption();
 
 
                     $responseText = 'Cool, we got your photo with caption:' . $caption;
@@ -215,7 +216,7 @@ class GenericmessageCommand extends SystemCommand
 
     }
 
-    private function getFileByFilePath($filePath)
+    private function getFileByFilePathAndGetSavedFileName($filePath)
     {
 
         if ( ! $filePath)
@@ -224,31 +225,84 @@ class GenericmessageCommand extends SystemCommand
         }
 
 
-        /** @var Client $http */
-        $http = resolve('GuzzleHttp\Client');
-        //https://api.telegram.org/file/bot1499930220:AAFlvI__hozB3ImiUaiPvrERdDdA7SpXXWM/photos/file_1.jpg
-
         try
         {
 
-            $response = $http->request('get',
-                env('TELEGRAM_BOT_API_URL') . 'file/bot' . env('TELEGRAM_BOT_API_KEY') . '/' . $filePath);
+            /** @var Client $http */
+            $http = resolve('GuzzleHttp\Client');
 
+            $fileUrl = env('TELEGRAM_BOT_API_URL') . 'file/bot' . env('TELEGRAM_BOT_API_KEY') . '/' . $filePath;
+            $response = $http->request('get', $fileUrl);
 
-            if ($response->getStatusCode() === 200 && $response->getBody()->getSize() > 0)
-            {
-                $faker = Faker\Factory::create();
-                return file_put_contents(storage_path('app/public/photos/' . $faker->word . date('Y-m-d-H-i-s') . '.jpg'),
-                    $response->getBody()->getContents(),
-                    LOCK_EX);
-            }
+            return $this->savePhotoFileAndGetSavedFileName($fileUrl, $response);
 
-            return false;
-        } catch (\Exception $e)
+        } catch (SavePhotoToServerFailedException $e)
         {
-            log::error(exceptionToString($e));
+            log::error('save photo to server failed with file url (' . $e->getMessage() . ')');
+
+        } catch (GuzzleException $e)
+        {
+
+            log::error('http failed with message (' . exceptionToString($e) . ')');
+
+        } catch (Exception $e)
+        {
+
+            log::error('uncaught error with message (' . exceptionToString($e) . ')');
 
         }
+        return false;
+
+    }
+
+    /**
+     * @param $fileUrl
+     * @param $response
+     * @return false|string
+     * @throws SavePhotoToServerFailedException
+     */
+    private function savePhotoFileAndGetSavedFileName($fileUrl, $response)
+    {
+
+        if ($response->getStatusCode() === 200 && $response->getBody()->getSize() > 0)
+        {
+
+            $photoName = getRandomFileName();
+
+            $savePhotoResult = file_put_contents(storage_path('app/public/photos/' . $photoName),
+                $response->getBody()->getContents(),
+                LOCK_EX);
+
+            if ($savePhotoResult === false)
+            {
+                //save fail
+
+                throw new SavePhotoToServerFailedException($fileUrl);
+
+            }
+
+            return $photoName;
+
+        }
+        return false;
+    }
+
+    private function handleActiveConversationResponseOrDeprecatedSystemCommandResponse()
+    {
+
+        // non-command message will be execute the block
+        // Try to continue any active conversation.
+        if ($active_conversation_response = $this->executeActiveConversation())
+        {
+            return $active_conversation_response;
+        }
+
+        // Try to execute any deprecated system commands.
+        if (self::$execute_deprecated && $deprecated_system_command_response = $this->executeDeprecatedSystemCommand())
+        {
+            return $deprecated_system_command_response;
+        }
+
         return false;
     }
 }

@@ -48,7 +48,8 @@
             "Tests\\": "tests/"
         },
         "files": [
-            "app/Helpers/ExceptionParser.php"
+            "app/Helpers/ExceptionParser.php",
+            "app/Helpers/Common.php"
         ]
     },
     "minimum-stability": "dev",
