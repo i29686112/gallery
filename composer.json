@@ -49,7 +49,8 @@
         },
         "files": [
             "app/Helpers/ExceptionParser.php",
-            "app/Helpers/Common.php"
+            "app/Helpers/Common.php",
+            "app/Helpers/ConstList.php"
         ]
     },
     "minimum-stability": "dev",

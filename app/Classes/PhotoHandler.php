@@ -4,7 +4,7 @@
 namespace App\Classes;
 
 
-use App\Exceptions\SavePhotoToServerFailedException;
+use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
 use Longman\TelegramBot\Entities\Message;
@@ -12,6 +12,7 @@ use Redis;
 
 class PhotoHandler
 {
+
     /**
      * @var Message
      */
@@ -21,6 +22,7 @@ class PhotoHandler
      */
     private $photos;
 
+    private $responseText = SAVE_PHOTO_FAILED_MESSAGE;
 
     /**
      * PhotoHandler constructor.
@@ -30,23 +32,49 @@ class PhotoHandler
         $this->message = $message;
     }
 
-    public function getCaption()
+    protected function getCaption()
     {
         $caption = $this->message->getCaption();
+        $mediaGroupId = $this->message->getProperty('media_group_id');
 
-        if ($caption && $mediaGroupId = $this->message->getProperty('media_group_id'))
+
+        if ( ! $caption && $mediaGroupId)
         {
-
-            $this->saveCaptionByMediaGroupId($mediaGroupId, $caption);
-
-        } else
-        {
-
+            // 如果是一個群組群組的其他張照片，只有第一張照片會有caption，其他張的去redis裡面拿
             $caption = $this->getCaptionByMediaGroupId($mediaGroupId);
+        }
 
+        if ($caption && $mediaGroupId)
+        {
+            // 如果是一個群組群組的其他張照片，只有第一張照片會有caption，所以要先把第一張的caption存redis給其他張使用
+            $this->saveCaptionByMediaGroupId($mediaGroupId, $caption);
         }
 
         return $caption;
+    }
+
+    public function process()
+    {
+        $caption = $this->getCaption();
+
+        $fileId = $this->getFileId();
+        $filePath = $this->getFilePathByFileId($fileId);
+        $file = $this->getFileByFilePath($filePath);
+
+        $savedFileName = $this->savePhotoFileAndGetSavedFileName($file, $filePath);
+
+        if ($savedFileName !== false)
+        {
+            $this->responseText = SAVE_PHOTO_SUCCESS_MESSAGE . $caption;
+        }
+
+        return false;
+
+    }
+
+    public function getResponseText()
+    {
+        return $this->responseText;
     }
 
     private function saveCaptionByMediaGroupId($mediaGroupId, $caption)
@@ -98,11 +126,15 @@ class PhotoHandler
     protected function getFilePathByFileId(string $fileId)
     {
 
-        /** @var Client $http */
-        $http = resolve('GuzzleHttp\Client');
+        if ( ! $fileId)
+        {
+            return false;
+        }
 
         try
         {
+            /** @var Client $http */
+            $http = resolve('GuzzleHttp\Client');
             $response = $http->get(env('TELEGRAM_BOT_API_URL') . 'bot' . env('TELEGRAM_BOT_API_KEY') . '/getFile?file_id=' . $fileId);
             $contents = json_decode($response->getBody()->getContents());
             return (isset($contents->result->file_path) && $contents->result->file_path !== '') ? $contents->result->file_path : false;
@@ -117,18 +149,24 @@ class PhotoHandler
 
     protected function getFileByFilePath(string $filePath)
     {
-
-        /** @var Client $http */
-        $http = resolve('GuzzleHttp\Client');
+        if ( ! $filePath)
+        {
+            return false;
+        }
 
         try
         {
             /** @var Client $http */
             $http = resolve('GuzzleHttp\Client');
 
-            $fileUrl = env('TELEGRAM_BOT_API_URL') . 'file/bot' . env('TELEGRAM_BOT_API_KEY') . '/' . $filePath;
+            $fileUrl = $this->getFileUrl($filePath);
             $response = $http->request('get', $fileUrl);
-            return $response;
+
+            if ($response->getStatusCode() === 200 && $response->getBody()->getSize() > 0)
+            {
+                return $response->getBody()->getContents();
+            }
+
 
         } catch (\Exception $e)
         {
@@ -139,35 +177,53 @@ class PhotoHandler
     }
 
     /**
-     * @param $fileUrl
-     * @param $response
+     * @param $file
+     * @param $filePath
      * @return false|string
-     * @throws SavePhotoToServerFailedException
      */
-    protected function savePhotoFileAndGetSavedFileName($fileUrl, $response)
+    protected function savePhotoFileAndGetSavedFileName($file, $filePath)
     {
 
-        if ($response->getStatusCode() === 200 && $response->getBody()->getSize() > 0)
+        if ($file === false)
         {
+            return false;
+        }
 
-            $photoName = getRandomFileName();
 
+        $photoName = getRandomFileName();
+
+        try
+        {
             $savePhotoResult = file_put_contents(storage_path('app/public/photos/' . $photoName),
-                $response->getBody()->getContents(),
+                $file,
                 LOCK_EX);
 
             if ($savePhotoResult === false)
             {
                 //save fail
-
-                throw new SavePhotoToServerFailedException($fileUrl);
+                throw new \Exception($this->getFileUrl($filePath));
 
             }
 
             return $photoName;
 
+        } catch (Exception $e)
+        {
+            log::error('save photo to server failed with file url (' . $e->getMessage() . ')');
         }
+
         return false;
+
+
+    }
+
+    /**
+     * @param string $filePath
+     * @return string
+     */
+    protected function getFileUrl(string $filePath): string
+    {
+        return env('TELEGRAM_BOT_API_URL') . 'file/bot' . env('TELEGRAM_BOT_API_KEY') . '/' . $filePath;
     }
 
 

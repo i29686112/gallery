@@ -30,6 +30,7 @@ class TelegramControllerTest extends TestCase
             $rawContent);
 
         $response->assertStatus(200);
+        $response->assertSeeText(SAVE_PHOTO_SUCCESS_MESSAGE);
     }
 
     public function testSendNonPhotoMessage()

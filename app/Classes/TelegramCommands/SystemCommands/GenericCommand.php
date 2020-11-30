@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace App\Classes\SystemCommands;
+namespace App\Classes\TelegramCommands\SystemCommands;
 
 use Longman\TelegramBot\Commands\SystemCommand;
 use Longman\TelegramBot\Entities\ServerResponse;

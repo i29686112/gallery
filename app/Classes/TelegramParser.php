@@ -9,6 +9,10 @@ class TelegramParser
 {
 
 
+    /**
+     * @param Message $message
+     * @return PhotoHandler
+     */
     public static function create(Message $message)
     {
         if ($message->getType() === 'photo')

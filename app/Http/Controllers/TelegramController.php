@@ -10,6 +10,8 @@ use Longman\TelegramBot\Telegram;
 class TelegramController extends Controller
 {
     //
+
+
     public function index(Request $request, Telegram $telegram)
     {
 
@@ -20,6 +22,29 @@ class TelegramController extends Controller
 
             if ($telegram->handle())
             {
+
+                $response = $telegram->getLastCommandResponse();
+
+                if ( ! $response)
+                {
+                    // we need check again cause sometime it may got NULL
+                    return 'ok';
+
+                }
+
+                $responseText = $response->getResult()->text;
+
+                if (stripos($responseText, SAVE_PHOTO_SUCCESS_MESSAGE) !== false)
+                {
+                    return SAVE_PHOTO_SUCCESS_MESSAGE;
+                }
+
+                if (stripos($responseText, SAVE_PHOTO_FAILED_MESSAGE) !== false)
+                {
+                    return SAVE_PHOTO_FAILED_MESSAGE;
+                }
+
+
                 return "ok";
             }
 
