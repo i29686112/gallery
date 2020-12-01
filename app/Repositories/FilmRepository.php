@@ -30,6 +30,6 @@ class FilmRepository
     public function index()
     {
         $query = $this->film->newQuery();
-        return $query->get(['id,name,cover_image_path']);
+        return $query->get(['id', 'name', 'cover_image_path']);
     }
 }

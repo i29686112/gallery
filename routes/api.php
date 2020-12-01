@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FilmController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,14 +19,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/cookie/set', function (Request $request) {
 
-    setcookie('secret','@#$%^&*',0,'','',false,true);
-    return 'set ok';
-});
+Route::get('/films', [FilmController::class, 'index']);
 
-Route::get('/cookie/get', function (Request $request) {
-    return "secret is ". (isset($_COOKIE['secret'])?$_COOKIE['secret']:'');
-});
 
 
