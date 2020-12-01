@@ -20,7 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::get('/films', [FilmController::class, 'index']);
+Route::get('/film', [FilmController::class, 'index']);
 
 
 
