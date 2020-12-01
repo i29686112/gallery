@@ -44,6 +44,16 @@ class TelegramController extends Controller
                     return SAVE_PHOTO_FAILED_MESSAGE;
                 }
 
+                // 因為有分行，我們判斷前10個字元就好
+                if (stripos(UNKNOWN_FILM_MESSAGE, substr($responseText, 0, 10)) !== false)
+                {
+                    return UNKNOWN_FILM_MESSAGE;
+                }
+
+                if (stripos($responseText, NOT_SUPPORT_UNCOMPRESSED_PHOTO) !== false)
+                {
+                    return NOT_SUPPORT_UNCOMPRESSED_PHOTO;
+                }
 
                 return NOT_PHOTO_MESSAGE;
             }

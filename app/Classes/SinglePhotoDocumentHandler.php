@@ -10,21 +10,11 @@ class SinglePhotoDocumentHandler extends PhotoHandler
     public function process()
     {
 
-        $this->setFileExtensionName();
-        return parent::process();
+        // 先回傳暫不支援，無法設計出合理的使用流程
+        $this->responseText = NOT_SUPPORT_UNCOMPRESSED_PHOTO;
+
+        return false;
 
     }
 
-    public function getFileId()
-    {
-        return ($this->message->getDocument()) ? $this->message->getDocument()->getFileId() : false;
-    }
-
-    private function setFileExtensionName()
-    {
-        $this->extensionName = ($this->message->getDocument()) ?
-            getFileExtensionNameFromMimeType($this->message->getDocument()->getMimeType()) :
-            false;
-
-    }
 }

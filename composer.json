@@ -16,10 +16,10 @@
         "laravel/tinker": "^2.5",
         "longman/telegram-bot": "^0.64.0",
         "ext-json": "*",
-        "ext-redis": "*",
-        "ext-http": "*"
+        "ext-redis": "*"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^2.8",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
         "mockery/mockery": "^1.4.2",

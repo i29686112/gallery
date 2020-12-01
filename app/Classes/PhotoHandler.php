@@ -4,6 +4,8 @@
 namespace App\Classes;
 
 
+use App\Services\FilmService;
+use App\Services\SavedPhotoService;
 use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
@@ -23,14 +25,58 @@ class PhotoHandler
     protected $photos;
 
     protected $responseText = SAVE_PHOTO_FAILED_MESSAGE;
-    protected $extensionName;
+    protected $extensionName = 'jpg';
+    protected $filmService;
+    protected $savedPhotoService;
 
     /**
      * PhotoHandler constructor.
+     * @param Message $message
      */
     public function __construct(Message $message)
     {
         $this->message = $message;
+        $this->filmService = new FilmService();
+        $this->savedPhotoService = new SavedPhotoService();
+    }
+
+    /** main entrance */
+    public function process()
+    {
+        $caption = $this->getCaption();
+
+        if ( ! $caption)
+        {
+            log::error('get caption of message filed with input:' . json_encode($this->message->getRawData()));
+            return false;
+        }
+
+        $fileId = $this->getFileId();
+        $filePath = $this->getFilePathByFileId($fileId);
+        $file = $this->getFileByFilePath($filePath);
+
+        $film = $this->filmService->getFilmFromCaption($caption);
+
+        if ( ! $film)
+        {
+
+
+            $this->responseText = UNKNOWN_FILM_MESSAGE;
+            return false;
+        }
+
+        $savedFileName = $this->savePhotoFileAndGetSavedFileName($file, $filePath);
+
+        $savedPhoto = $this->savedPhotoService->create($savedFileName, $this->message->getChat()->getId(), $film);
+
+        if ($savedPhoto !== false)
+        {
+
+            $this->responseText = SAVE_PHOTO_SUCCESS_MESSAGE . $film->name;
+        }
+
+        return false;
+
     }
 
     protected function getCaption()
@@ -54,37 +100,12 @@ class PhotoHandler
         return $caption;
     }
 
-    public function process()
-    {
-        $caption = $this->getCaption();
-
-        if ( ! $caption)
-        {
-            // 一次傳多張圖片原始檔時，會抓不到caption然後就出錯，這邊先紀錄下來
-            log::error('get caption of message filed with input:' . json_encode($this->message->getRawData()));
-            return false;
-        }
-        $fileId = $this->getFileId();
-        $filePath = $this->getFilePathByFileId($fileId);
-        $file = $this->getFileByFilePath($filePath);
-
-        $savedFileName = $this->savePhotoFileAndGetSavedFileName($file, $filePath);
-
-        if ($savedFileName !== false)
-        {
-            $this->responseText = SAVE_PHOTO_SUCCESS_MESSAGE . $caption;
-        }
-
-        return false;
-
-    }
-
     public function getResponseText()
     {
         return $this->responseText;
     }
 
-    private function saveCaptionByMediaGroupId($mediaGroupId, $caption)
+    protected function saveCaptionByMediaGroupId($mediaGroupId, $caption)
     {
         /** @var Redis $redis */
         $redis = resolve('Redis');
@@ -99,7 +120,7 @@ class PhotoHandler
         return false;
     }
 
-    public function getCaptionByMediaGroupId($mediaGroupId)
+    protected function getCaptionByMediaGroupId($mediaGroupId)
     {
         if ($mediaGroupId)
         {
@@ -113,7 +134,7 @@ class PhotoHandler
     }
 
 
-    public function getFileId()
+    protected function getFileId()
     {
         if ( ! $this->photos)
         {
@@ -196,11 +217,14 @@ class PhotoHandler
             return false;
         }
 
-        $fileExtensionName = ($this->extensionName) ? $this->extensionName : '';
-        $photoName = getRandomFileName($fileExtensionName);
 
         try
         {
+
+            $mimeType = $this->getMimeTypeFromBinString($file);
+
+            $photoName = getRandomFileName(getFileExtensionNameFromMimeType($mimeType));
+
             $savePhotoResult = file_put_contents(storage_path('app/public/photos/' . $photoName),
                 $file,
                 LOCK_EX);
@@ -231,6 +255,20 @@ class PhotoHandler
     protected function getFileUrl(string $filePath): string
     {
         return env('TELEGRAM_BOT_API_URL') . 'file/bot' . env('TELEGRAM_BOT_API_KEY') . '/' . $filePath;
+    }
+
+
+    /**
+     * @param $file
+     * @return false|string
+     */
+    protected function getMimeTypeFromBinString($file)
+    {
+        $stream = fopen('php://memory', 'r+');
+        fwrite($stream, $file);
+        rewind($stream);
+
+        return mime_content_type($stream);
     }
 
 

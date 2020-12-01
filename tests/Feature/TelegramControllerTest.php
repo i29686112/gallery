@@ -7,7 +7,7 @@ use Tests\TestCase;
 class TelegramControllerTest extends TestCase
 {
 
-    public function testSendSinglePhoto()
+    public function testSendSinglePhotoWithValidFilmCaption()
     {
         // test single photo file is enough.
         // because if we send multiple photos, telegram will send multiple webhook callback with additional `media_group_id` field.
@@ -15,7 +15,7 @@ class TelegramControllerTest extends TestCase
         $messageId = mt_rand(1, 1000);
         $updateId = mt_rand(1, 10000);
 
-        $rawContent = '{    "update_id": ' . $updateId . ',    "message": {        "message_id": ' . $messageId . ',        "from": {            "id": 227278637,            "is_bot": false,            "first_name": "Ian",            "last_name": "Chiang",            "username": "Ianixn",            "language_code": "zh-hans"        },        "chat": {            "id": 227278637,            "first_name": "Ian",            "last_name": "Chiang",            "username": "Ianixn",            "type": "private"        },        "date": 1606448378,        "photo": [            {                "file_id": "AgACAgUAAxkBAANPX8B0-rWYzbPZxV6QZQo0vn6AxVMAAnSrMRs3KwABVl9n6W5MszNoBEgkbXQAAwEAAwIAA20AA-AAAQEAAR4E",                "file_unique_id": "AQADBEgkbXQAA-AAAQEAAQ",                "file_size": 5111,                "width": 320,                "height": 165            },            {                "file_id": "AgACAgUAAxkBAANPX8B0-rWYzbPZxV6QZQo0vn6AxVMAAnSrMRs3KwABVl9n6W5MszNoBEgkbXQAAwEAAwIAA3gAA94AAQEAAR4E",                "file_unique_id": "AQADBEgkbXQAA94AAQEAAQ",                "file_size": 12160,                "width": 676,                "height": 349            }        ],        "caption": "asdfas"    }}';
+        $rawContent = '{    "update_id": ' . $updateId . ',    "message": {        "message_id": ' . $messageId . ',        "from": {            "id": 227278637,            "is_bot": false,            "first_name": "Ian",            "last_name": "Chiang",            "username": "Ianixn",            "language_code": "zh-hans"        },        "chat": {            "id": 227278637,            "first_name": "Ian",            "last_name": "Chiang",            "username": "Ianixn",            "type": "private"        },        "date": 1606448378,        "photo": [            {                "file_id": "AgACAgUAAxkBAANPX8B0-rWYzbPZxV6QZQo0vn6AxVMAAnSrMRs3KwABVl9n6W5MszNoBEgkbXQAAwEAAwIAA20AA-AAAQEAAR4E",                "file_unique_id": "AQADBEgkbXQAA-AAAQEAAQ",                "file_size": 5111,                "width": 320,                "height": 165            },            {                "file_id": "AgACAgUAAxkBAANPX8B0-rWYzbPZxV6QZQo0vn6AxVMAAnSrMRs3KwABVl9n6W5MszNoBEgkbXQAAwEAAwIAA3gAA94AAQEAAR4E",                "file_unique_id": "AQADBEgkbXQAA94AAQEAAQ",                "file_size": 12160,                "width": 676,                "height": 349            }        ],        "caption": "Vista 200"    }}';
 
         $response = $this->call(
             'POST',
@@ -32,6 +32,35 @@ class TelegramControllerTest extends TestCase
         $response->assertStatus(200);
         $response->assertSeeText(SAVE_PHOTO_SUCCESS_MESSAGE);
     }
+
+    public function testSendSinglePhotoWithInValidFilmCaption()
+    {
+        // test single photo file is enough.
+        // because if we send multiple photos, telegram will send multiple webhook callback with additional `media_group_id` field.
+
+        $messageId = mt_rand(1, 1000);
+        $updateId = mt_rand(1, 10000);
+
+        $rawContent = '{    "update_id": ' . $updateId . ',    "message": {        "message_id": ' . $messageId . ',        "from": {            "id": 227278637,            "is_bot": false,            "first_name": "Ian",            "last_name": "Chiang",            "username": "Ianixn",            "language_code": "zh-hans"        },        "chat": {            "id": 227278637,            "first_name": "Ian",            "last_name": "Chiang",            "username": "Ianixn",            "type": "private"        },        "date": 1606448378,        "photo": [            {                "file_id": "AgACAgUAAxkBAANPX8B0-rWYzbPZxV6QZQo0vn6AxVMAAnSrMRs3KwABVl9n6W5MszNoBEgkbXQAAwEAAwIAA20AA-AAAQEAAR4E",                "file_unique_id": "AQADBEgkbXQAA-AAAQEAAQ",                "file_size": 5111,                "width": 320,                "height": 165            },            {                "file_id": "AgACAgUAAxkBAANPX8B0-rWYzbPZxV6QZQo0vn6AxVMAAnSrMRs3KwABVl9n6W5MszNoBEgkbXQAAwEAAwIAA3gAA94AAQEAAR4E",                "file_unique_id": "AQADBEgkbXQAA94AAQEAAQ",                "file_size": 12160,                "width": 676,                "height": 349            }        ],        "caption": "open200"    }}';
+
+        $response = $this->call(
+            'POST',
+            '/telegram',
+            [],
+            [],
+            [],
+            $headers = [
+                'HTTP_CONTENT_LENGTH' => mb_strlen($rawContent, '8bit'),
+                'CONTENT_TYPE' => 'application/json',
+            ],
+            $rawContent);
+
+        $response->assertStatus(200);
+
+        // 因為有分行，我們判斷前10個字元就好
+        $response->assertSeeText(substr(UNKNOWN_FILM_MESSAGE, 0, 10));
+    }
+
 
     public function testSendNonPhotoMessage()
     {
@@ -104,7 +133,7 @@ class TelegramControllerTest extends TestCase
             $rawContent);
 
         $response->assertStatus(200);
-        $response->assertSeeText(SAVE_PHOTO_SUCCESS_MESSAGE);
+        $response->assertSeeText(NOT_SUPPORT_UNCOMPRESSED_PHOTO);
     }
 
 

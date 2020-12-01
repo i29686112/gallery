@@ -5,6 +5,10 @@ if ( ! function_exists('getRandomFileName'))
 {
     function getRandomFileName($fileExtensionName = 'jpg')
     {
+        if ( ! $fileExtensionName)
+        {
+            $fileExtensionName = 'jpg';
+        }
         $faker = Faker\Factory::create();
 
         $now = DateTime::createFromFormat('U.u', microtime(true));
