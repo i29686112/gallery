@@ -23,6 +23,7 @@ class FilmControllerTest extends TestCase
                     '*' => [
                         'id',
                         'name',
+                        'description',
                         'cover_image_path',
                         'cover_image_url',
                     ],

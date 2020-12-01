@@ -23,7 +23,7 @@
           <div class="cd-full-width">
             <div class="container-fluid js-tm-page-content" data-page-no="1" data-page-type="gallery">
               <div class="tm-img-gallery-container">
-                <div class="tm-img-gallery gallery-one">
+                <div v-if="isLoaded" class="tm-img-gallery gallery-one">
 
                   <div v-for="(film,index) in filmList" :key="index" class="grid-item">
                     <figure class="effect-sadie">
@@ -31,13 +31,14 @@
                         :src="domain+film.cover_image_url"
                         alt="Image"
                         class="img-fluid tm-img"
+                        @load="onImgLoad"
                       >
                       <figcaption>
                         <h2 class="tm-figure-title">{{
                           film.name
                         }}</h2>
                         <p class="tm-figure-description">{{
-                          film.name
+                          film.description
                         }}</p>
                         <a :href="domain+film.cover_image_url">View
                           more</a>
@@ -85,8 +86,7 @@ import '@/assets/js/tether.min.js'
 
 // bootstrap的css在index.scss引用了
 import 'bootstrap'
-import '@/assets/js/hero-slider-main.js'
-import '@/assets/js/jquery.magnific-popup.min.js'
+
 import { getFilm } from '@/api/film'
 
 window.$ = window.jQuery = $
@@ -124,16 +124,15 @@ export default {
   methods: {
     initGallery() {
       const _this = this
-
-      $('.gallery-one').magnificPopup({
-        delegate: 'a', // child items selector, by clicking on it popup will open
-        type: 'image',
-        gallery: { enabled: true }
-      })
+      //
+      // $('.gallery-one').magnificPopup({
+      //   delegate: 'a', // child items selector, by clicking on it popup will open
+      //   type: 'image'
+      // })
 
       this.$nextTick(function() {
         /* Browser resized
-                                                                                                                                                                                                                                                                                                                                                                                      -----------------------------------------*/
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      -----------------------------------------*/
         $(window).resize(function() {
           const currentPageNo = $('.cd-hero-slider li.selected .js-tm-page-content').data('page-no')
 
@@ -148,11 +147,10 @@ export default {
 
         // Write current year in copyright text.
         $('.tm-copyright-year').text(new Date().getFullYear())
-
-        _this.adjustHeightOfPage(1) // Adjust page height
       })
     },
     adjustHeightOfPage(pageNo) {
+      console.log('adjustHeightOfPage')
       let pageContentHeight = 0
 
       const pageType = $('div[data-page-no="' + pageNo + '"]').data('page-type')
@@ -176,8 +174,11 @@ export default {
         $('.cd-hero-slider').removeClass('small-screen')
         $('.cd-hero-slider li:nth-of-type(' + pageNo + ')').css('min-height', '100%')
       }
-    }
+    },
 
+    onImgLoad() {
+      this.adjustHeightOfPage(1) // Adjust page height
+    }
   }
 }
 </script>

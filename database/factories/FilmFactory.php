@@ -25,6 +25,7 @@ class FilmFactory extends Factory
             'name' => $this->faker->name,
             'key_name' => $this->faker->name,
             'cover_image_path' => $this->faker->word,
+            'description' => $this->faker->sentence,
         ];
     }
 }
