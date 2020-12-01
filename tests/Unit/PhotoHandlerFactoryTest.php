@@ -2,10 +2,10 @@
 
 namespace Tests\Unit;
 
-use App\Classes\TelegramParser;
+use App\Classes\PhotoHandlerFactory;
 use Tests\TestCase;
 
-class TelegramHandlePhotoTest extends TestCase
+class PhotoHandlerFactoryTest extends TestCase
 {
 
     public function testTelegramParserSingleCompressPhotoOk()
@@ -18,7 +18,7 @@ class TelegramHandlePhotoTest extends TestCase
         $messageMock->shouldReceive('getProperty')->withArgs(['media_group_id'])->andReturn(null);
 
 
-        $this->assertTrue(is_a(TelegramParser::create($messageMock), 'App\Classes\SinglePhotoHandler'));
+        $this->assertTrue(is_a(PhotoHandlerFactory::create($messageMock), 'App\Classes\SinglePhotoHandler'));
 
     }
 
@@ -32,7 +32,7 @@ class TelegramHandlePhotoTest extends TestCase
         $messageMock->shouldReceive('getProperty')->withArgs(['media_group_id'])->andReturn(1);
 
 
-        $this->assertTrue(is_a(TelegramParser::create($messageMock), 'App\Classes\MultiplePhotoHandler'));
+        $this->assertTrue(is_a(PhotoHandlerFactory::create($messageMock), 'App\Classes\MultiplePhotoHandler'));
 
     }
 
@@ -48,7 +48,7 @@ class TelegramHandlePhotoTest extends TestCase
         $messageMock->shouldReceive('getProperty')->withArgs(['media_group_id'])->andReturn(null);
 
 
-        $this->assertTrue(is_a(TelegramParser::create($messageMock), 'App\Classes\SinglePhotoDocumentHandler'));
+        $this->assertTrue(is_a(PhotoHandlerFactory::create($messageMock), 'App\Classes\SinglePhotoDocumentHandler'));
 
     }
 
@@ -63,7 +63,7 @@ class TelegramHandlePhotoTest extends TestCase
         $messageMock->shouldReceive('getProperty')->withArgs(['media_group_id'])->andReturn(1);
 
 
-        $this->assertTrue(is_a(TelegramParser::create($messageMock), 'App\Classes\MultiplePhotoDocumentHandler'));
+        $this->assertTrue(is_a(PhotoHandlerFactory::create($messageMock), 'App\Classes\MultiplePhotoDocumentHandler'));
 
     }
 

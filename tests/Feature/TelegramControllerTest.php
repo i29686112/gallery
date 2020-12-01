@@ -35,8 +35,6 @@ class TelegramControllerTest extends TestCase
 
     public function testSendNonPhotoMessage()
     {
-        // test single photo file is enough.
-        // because if we send multiple photos, telegram will send multiple webhook callback with additional `media_group_id` field.
 
         $messageId = mt_rand(1, 1000);
         $updateId = mt_rand(1, 10000);
@@ -56,6 +54,7 @@ class TelegramControllerTest extends TestCase
             $rawContent);
 
         $response->assertStatus(200);
+        $response->assertSeeText(NOT_PHOTO_MESSAGE);
     }
 
     public function testSendMultiplePhotosAtFirstPhotoCallback()
@@ -105,6 +104,7 @@ class TelegramControllerTest extends TestCase
             $rawContent);
 
         $response->assertStatus(200);
+        $response->assertSeeText(SAVE_PHOTO_SUCCESS_MESSAGE);
     }
 
 

@@ -11,7 +11,7 @@
 
 namespace App\Classes\TelegramCommands\SystemCommands;
 
-use App\Classes\TelegramParser;
+use App\Classes\PhotoHandlerFactory;
 use Longman\TelegramBot\Commands\SystemCommand;
 use Longman\TelegramBot\Entities\ServerResponse;
 use Longman\TelegramBot\Exception\TelegramException;
@@ -77,7 +77,7 @@ class GenericmessageCommand extends SystemCommand
         $message = $this->getMessage();
         $chatId = $message->getChat()->getId();
 
-        $photoHandler = TelegramParser::create($message);
+        $photoHandler = PhotoHandlerFactory::create($message);
         $photoHandler->process();
         $responseText = $photoHandler->getResponseText();
 

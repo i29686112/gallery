@@ -5,7 +5,7 @@ namespace App\Classes;
 
 use Longman\TelegramBot\Entities\Message;
 
-class TelegramParser
+class PhotoHandlerFactory
 {
 
 
@@ -39,7 +39,7 @@ class TelegramParser
 
         }
 
-        return false;
+        return new NonPhotoHandler($message);
 
 
     }

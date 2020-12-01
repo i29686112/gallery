@@ -16,13 +16,14 @@ class PhotoHandler
     /**
      * @var Message
      */
-    private $message;
+    protected $message;
     /**
      * @var \Longman\TelegramBot\Entities\PhotoSize[]
      */
-    private $photos;
+    protected $photos;
 
-    private $responseText = SAVE_PHOTO_FAILED_MESSAGE;
+    protected $responseText = SAVE_PHOTO_FAILED_MESSAGE;
+    protected $extensionName;
 
     /**
      * PhotoHandler constructor.
@@ -57,6 +58,12 @@ class PhotoHandler
     {
         $caption = $this->getCaption();
 
+        if ( ! $caption)
+        {
+            // 一次傳多張圖片原始檔時，會發生錯誤
+            log::error('get caption of message filed with input:' . json_encode($this->message->getRawData()));
+            return false;
+        }
         $fileId = $this->getFileId();
         $filePath = $this->getFilePathByFileId($fileId);
         $file = $this->getFileByFilePath($filePath);
@@ -189,8 +196,8 @@ class PhotoHandler
             return false;
         }
 
-
-        $photoName = getRandomFileName();
+        $fileExtensionName = ($this->extensionName) ? $this->extensionName : '';
+        $photoName = getRandomFileName($fileExtensionName);
 
         try
         {

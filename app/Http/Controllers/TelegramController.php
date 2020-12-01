@@ -45,8 +45,10 @@ class TelegramController extends Controller
                 }
 
 
-                return "ok";
+                return NOT_PHOTO_MESSAGE;
             }
+
+            return DO_NOTHING_MESSAGE;
 
         } catch (TelegramException $e)
         {
