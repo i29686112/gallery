@@ -60,7 +60,7 @@ class PhotoHandler
 
         if ( ! $caption)
         {
-            // 一次傳多張圖片原始檔時，會發生錯誤
+            // 一次傳多張圖片原始檔時，會抓不到caption然後就出錯，這邊先紀錄下來
             log::error('get caption of message filed with input:' . json_encode($this->message->getRawData()));
             return false;
         }
