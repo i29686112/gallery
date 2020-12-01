@@ -9,29 +9,8 @@
         <nav class="navbar">
           <div class="tm-navbar-bg">
 
-            <a class="navbar-brand text-uppercase" href="#"><i class="fa fa-picture-o tm-brand-icon" />Fluid
-              Gallery</a>
+            <a class="navbar-brand text-uppercase" href="#">Film Gallery</a>
 
-            <button
-              class="navbar-toggler hidden-lg-up"
-              type="button"
-              data-toggle="collapse"
-              data-target="#tmNavbar"
-            >
-              &#9776;
-            </button>
-            <div
-              id="tmNavbar"
-              class="collapse navbar-toggleable-md text-xs-center text-uppercase tm-navbar"
-            >
-              <ul class="nav navbar-nav">
-                <li class="nav-item active selected">
-                  <a class="nav-link" href="#0" data-no="1">1st fluid <span
-                    class="sr-only"
-                  >(current)</span></a>
-                </li>
-              </ul>
-            </div>
           </div>
 
         </nav>
@@ -45,256 +24,23 @@
             <div class="container-fluid js-tm-page-content" data-page-no="1" data-page-type="gallery">
               <div class="tm-img-gallery-container">
                 <div class="tm-img-gallery gallery-one">
-                  <!-- Gallery One pop up connected with JS code below -->
-                  <div class="grid-item">
+
+                  <div v-for="(film,index) in filmList" :key="index" class="grid-item">
                     <figure class="effect-sadie">
                       <img
-                        src="@/assets/img/tm-img-01-tn.jpg"
+                        :src="domain+film.cover_image_url"
                         alt="Image"
                         class="img-fluid tm-img"
                       >
                       <figcaption>
-                        <h2 class="tm-figure-title">Image <span><strong>One</strong></span></h2>
-                        <p class="tm-figure-description">Set true or false in HTML script tag
-                          for this page black and white.</p>
-                        <a href="@/assets/img/tm-img-01.jpg">View more</a>
-                      </figcaption>
-                    </figure>
-                  </div>
-                  <div class="grid-item">
-                    <figure class="effect-sadie">
-                      <img
-                        src="@/assets/img/tm-img-02-tn.jpg"
-                        alt="Image"
-                        class="img-fluid tm-img"
-                      >
-                      <figcaption>
-                        <h2 class="tm-figure-title">Image <span><strong>Two</strong></span></h2>
-                        <p class="tm-figure-description">Set true or false in HTML page line
-                          number 40 to turn on off page color.</p>
-                        <a href="@/assets/img/tm-img-02.jpg">View more</a>
-                      </figcaption>
-                    </figure>
-                  </div>
-                  <div class="grid-item">
-                    <figure class="effect-sadie">
-                      <img
-                        src="@/assets/img/tm-img-03-tn.jpg"
-                        alt="Image"
-                        class="img-fluid tm-img"
-                      >
-                      <figcaption>
-                        <h2 class="tm-figure-title">Image <span><strong>Three</strong></span>
-                        </h2>
-                        <p class="tm-figure-description">Lorem ipsum dolor sit amet, consectetur
-                          adipiscing elit.</p>
-                        <a href="@/assets/img/tm-img-03.jpg">View more</a>
-                      </figcaption>
-                    </figure>
-                  </div>
-                  <div class="grid-item">
-                    <figure class="effect-sadie">
-                      <img
-                        src="@/assets/img/tm-img-04-tn.jpg"
-                        alt="Image"
-                        class="img-fluid tm-img"
-                      >
-                      <figcaption>
-                        <h2 class="tm-figure-title">Image <span><strong>Four</strong></span>
-                        </h2>
-                        <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in
-                          sapien.</p>
-                        <a href="@/assets/img/tm-img-04.jpg">View more</a>
-                      </figcaption>
-                    </figure>
-                  </div>
-                  <div class="grid-item">
-                    <figure class="effect-sadie">
-                      <img
-                        src="@/assets/img/tm-img-05-tn.jpg"
-                        alt="Image"
-                        class="img-fluid tm-img"
-                      >
-                      <figcaption>
-                        <h2 class="tm-figure-title">Image <span><strong>Five</strong></span>
-                        </h2>
-                        <p class="tm-figure-description">Lorem ipsum dolor sit amet, consectetur
-                          adipiscing elit.</p>
-                        <a href="@/assets/img/tm-img-05.jpg">View more</a>
-                      </figcaption>
-                    </figure>
-                  </div>
-                  <div class="grid-item">
-                    <figure class="effect-sadie">
-                      <img
-                        src="@/assets/img/tm-img-06-tn.jpg"
-                        alt="Image"
-                        class="img-fluid tm-img"
-                      >
-                      <figcaption>
-                        <h2 class="tm-figure-title">Image <span><strong>Six</strong></span></h2>
-                        <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in
-                          sapien.</p>
-                        <a href="@/assets/img/tm-img-06.jpg">View more</a>
-                      </figcaption>
-                    </figure>
-                  </div>
-                  <div class="grid-item">
-                    <figure class="effect-sadie">
-                      <img
-                        src="@/assets/img/tm-img-07-tn.jpg"
-                        alt="Image"
-                        class="img-fluid tm-img"
-                      >
-                      <figcaption>
-                        <h2 class="tm-figure-title">Image <span><strong>Seven</strong></span>
-                        </h2>
-                        <p class="tm-figure-description">Lorem ipsum dolor sit amet, consectetur
-                          adipiscing elit.</p>
-                        <a href="@/assets/img/tm-img-07.jpg">View more</a>
-                      </figcaption>
-                    </figure>
-                  </div>
-                  <div class="grid-item">
-                    <figure class="effect-sadie">
-                      <img
-                        src="@/assets/img/tm-img-08-tn.jpg"
-                        alt="Image"
-                        class="img-fluid tm-img"
-                      >
-                      <figcaption>
-                        <h2 class="tm-figure-title">Image <span><strong>Eight</strong></span>
-                        </h2>
-                        <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in
-                          sapien.</p>
-                        <a href="@/assets/img/tm-img-08.jpg">View more</a>
-                      </figcaption>
-                    </figure>
-                  </div>
-                  <div class="grid-item">
-                    <figure class="effect-sadie">
-                      <img
-                        src="@/assets/img/tm-img-09-tn.jpg"
-                        alt="Image"
-                        class="img-fluid tm-img"
-                      >
-                      <figcaption>
-                        <h2 class="tm-figure-title">Image <span><strong>Nine</strong></span>
-                        </h2>
-                        <p class="tm-figure-description">Lorem ipsum dolor sit amet, consectetur
-                          adipiscing elit.</p>
-                        <a href="@/assets/img/tm-img-09.jpg">View more</a>
-                      </figcaption>
-                    </figure>
-                  </div>
-                  <div class="grid-item">
-                    <figure class="effect-sadie">
-                      <img
-                        src="@/assets/img/tm-img-10-tn.jpg"
-                        alt="Image"
-                        class="img-fluid tm-img"
-                      >
-                      <figcaption>
-                        <h2 class="tm-figure-title">Image <span><strong>Ten</strong></span></h2>
-                        <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in
-                          sapien.</p>
-                        <a href="@/assets/img/tm-img-10.jpg">View more</a>
-                      </figcaption>
-                    </figure>
-                  </div>
-                  <div class="grid-item">
-                    <figure class="effect-sadie">
-                      <img
-                        src="@/assets/img/tm-img-11-tn.jpg"
-                        alt="Image"
-                        class="img-fluid tm-img"
-                      >
-                      <figcaption>
-                        <h2 class="tm-figure-title">Image <span><strong>Eleven</strong></span>
-                        </h2>
-                        <p class="tm-figure-description">Lorem ipsum dolor sit amet, consectetur
-                          adipiscing elit.</p>
-                        <a href="@/assets/img/tm-img-11.jpg">View more</a>
-                      </figcaption>
-                    </figure>
-                  </div>
-                  <div class="grid-item">
-                    <figure class="effect-sadie">
-                      <img
-                        src="@/assets/img/tm-img-12-tn.jpg"
-                        alt="Image"
-                        class="img-fluid tm-img"
-                      >
-                      <figcaption>
-                        <h2 class="tm-figure-title">Image <span><strong>Twelve</strong></span>
-                        </h2>
-                        <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in
-                          sapien.</p>
-                        <a href="@/assets/img/tm-img-12.jpg">View more</a>
-                      </figcaption>
-                    </figure>
-                  </div>
-                  <div class="grid-item">
-                    <figure class="effect-sadie">
-                      <img
-                        src="@/assets/img/tm-img-13-tn.jpg"
-                        alt="Image"
-                        class="img-fluid tm-img"
-                      >
-                      <figcaption>
-                        <h2 class="tm-figure-title">Image <span><strong>Thirteen</strong></span>
-                        </h2>
-                        <p class="tm-figure-description">Lorem ipsum dolor sit amet, consectetur
-                          adipiscing elit.</p>
-                        <a href="@/assets/img/tm-img-13.jpg">View more</a>
-                      </figcaption>
-                    </figure>
-                  </div>
-                  <div class="grid-item">
-                    <figure class="effect-sadie">
-                      <img
-                        src="@/assets/img/tm-img-14-tn.jpg"
-                        alt="Image"
-                        class="img-fluid tm-img"
-                      >
-                      <figcaption>
-                        <h2 class="tm-figure-title">Image <span><strong>Fourteen</strong></span>
-                        </h2>
-                        <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in
-                          sapien.</p>
-                        <a href="@/assets/img/tm-img-14.jpg">View more</a>
-                      </figcaption>
-                    </figure>
-                  </div>
-                  <div class="grid-item">
-                    <figure class="effect-sadie">
-                      <img
-                        src="@/assets/img/tm-img-15-tn.jpg"
-                        alt="Image"
-                        class="img-fluid tm-img"
-                      >
-                      <figcaption>
-                        <h2 class="tm-figure-title">Image <span><strong>Fifteen</strong></span>
-                        </h2>
-                        <p class="tm-figure-description">Lorem ipsum dolor sit amet, consectetur
-                          adipiscing elit.</p>
-                        <a href="@/assets/img/tm-img-15.jpg">View more</a>
-                      </figcaption>
-                    </figure>
-                  </div>
-                  <div class="grid-item">
-                    <figure class="effect-sadie">
-                      <img
-                        src="@/assets/img/tm-img-16-tn.jpg"
-                        alt="Image"
-                        class="img-fluid tm-img"
-                      >
-                      <figcaption>
-                        <h2 class="tm-figure-title">Image <span><strong>Sixteen</strong></span>
-                        </h2>
-                        <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in
-                          sapien.</p>
-                        <a href="@/assets/img/tm-img-16.jpg">View more</a>
+                        <h2 class="tm-figure-title">{{
+                          film.name
+                        }}</h2>
+                        <p class="tm-figure-description">{{
+                          film.name
+                        }}</p>
+                        <a :href="domain+film.cover_image_url">View
+                          more</a>
                       </figcaption>
                     </figure>
                   </div>
@@ -303,14 +49,6 @@
             </div>
           </div>
         </li>
-
-        <!-- Page 2 Gallery Two -->
-
-        <!-- Page 3 Gallery Three -->
-
-        <!-- Page 4 About -->
-
-        <!-- Page 5 Contact Us -->
 
       </ul> <!-- .cd-hero-slider -->
 
@@ -349,61 +87,71 @@ import '@/assets/js/tether.min.js'
 import 'bootstrap'
 import '@/assets/js/hero-slider-main.js'
 import '@/assets/js/jquery.magnific-popup.min.js'
+import { getFilm } from '@/api/film'
 
 window.$ = window.jQuery = $
 
 export default {
-  mounted() {
-    const tm_gray_site = false
-
-    if (tm_gray_site) {
-      $('html').addClass('gray')
-    } else {
-      $('html').removeClass('gray')
+  data() {
+    return {
+      filmList: [],
+      domain: '',
+      isLoaded: false
+    }
+  },
+  watch: {
+    isLoaded: {
+      handler: function(value) {
+        if (value === false) {
+          getFilm().then(response => {
+            if (response.success) {
+              this.filmList = response.data.items
+              this.isLoaded = true
+              this.initGallery()
+            }
+          }).catch(e => {
+            console.log(e)
+          })
+        }
+      },
+      immediate: true
     }
   },
   created() {
-    /*
-                Everything is loaded including images.
-            */
-    this.adjustHeightOfPage(1) // Adjust page height
+    // this.initGallery()
+    this.domain = process.env.VUE_APP_BASE_DOMAIN
+  },
+  methods: {
+    initGallery() {
+      const _this = this
 
-    const _this = this
-    this.$nextTick(function() {
-      /* Gallery One pop up
-                  -----------------------------------------*/
       $('.gallery-one').magnificPopup({
         delegate: 'a', // child items selector, by clicking on it popup will open
         type: 'image',
         gallery: { enabled: true }
       })
-      /* Collapse menu after click
-                    -----------------------------------------*/
-      $('#tmNavbar a').click(function() {
-        $('#tmNavbar').collapse('hide')
 
-        _this.adjustHeightOfPage($(this).data('no')) // Adjust page height
+      this.$nextTick(function() {
+        /* Browser resized
+                                                                                                                                                                                                                                                                                                                                                                                      -----------------------------------------*/
+        $(window).resize(function() {
+          const currentPageNo = $('.cd-hero-slider li.selected .js-tm-page-content').data('page-no')
+
+          // wait 3 seconds
+          setTimeout(function() {
+            _this.adjustHeightOfPage(currentPageNo)
+          }, 1000)
+        })
+
+        // Remove preloader (https://ihatetomatoes.net/create-custom-preloading-screen/)
+        $('body').addClass('loaded')
+
+        // Write current year in copyright text.
+        $('.tm-copyright-year').text(new Date().getFullYear())
+
+        _this.adjustHeightOfPage(1) // Adjust page height
       })
-
-      /* Browser resized
-                    -----------------------------------------*/
-      $(window).resize(function() {
-        const currentPageNo = $('.cd-hero-slider li.selected .js-tm-page-content').data('page-no')
-
-        // wait 3 seconds
-        setTimeout(function() {
-          _this.adjustHeightOfPage(currentPageNo)
-        }, 1000)
-      })
-
-      // Remove preloader (https://ihatetomatoes.net/create-custom-preloading-screen/)
-      $('body').addClass('loaded')
-
-      // Write current year in copyright text.
-      $('.tm-copyright-year').text(new Date().getFullYear())
-    })
-  },
-  methods: {
+    },
     adjustHeightOfPage(pageNo) {
       let pageContentHeight = 0
 

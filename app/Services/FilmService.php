@@ -23,7 +23,16 @@ class FilmService
 
     public function index()
     {
-        return $this->filmRepository->index();
+        $films = $this->filmRepository->index();
+
+        for ($i = 0; $i < $films->count(); $i++)
+        {
+
+            $films[$i]->cover_image_url = '/storage/covers/' . $films[$i]->cover_image_path;
+        }
+
+
+        return $films;
     }
 
     public function getFilmFromCaption($caption)

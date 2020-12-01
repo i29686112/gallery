@@ -10,7 +10,7 @@ class FilmControllerTest extends TestCase
     public function testIndex()
     {
 
-        $response = $this->get('/api/films');
+        $response = $this->get('/api/film');
 
         $response->assertStatus(200);
         $response->assertJsonStructure([
@@ -24,6 +24,7 @@ class FilmControllerTest extends TestCase
                         'id',
                         'name',
                         'cover_image_path',
+                        'cover_image_url',
                     ],
                 ],
             ],
