@@ -21,6 +21,11 @@ class FilmService
     }
 
 
+    public function index()
+    {
+        return $this->filmRepository->index();
+    }
+
     public function getFilmFromCaption($caption)
     {
         $keyName = $this->getKeyNameFromCaption($caption);

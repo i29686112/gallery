@@ -26,4 +26,10 @@ class FilmRepository
         $query = $this->film->newQuery();
         return $query->where('key_name', $keyName)->limit(1)->first();
     }
+
+    public function index()
+    {
+        $query = $this->film->newQuery();
+        return $query->get(['id,name,cover_image_path']);
+    }
 }

@@ -13,6 +13,7 @@ class Film extends Model
     protected $fillable = [
         'name',
         'key_name',
+        'cover_image_path',
     ];
 
 }
