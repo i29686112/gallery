@@ -20,7 +20,7 @@ Route::get('/', function () {
 });
 
 
-Route::post('/telegram', [TelegramController::class, 'index']);
+Route::post('/telegram/{apiSecret}', [TelegramController::class, 'index']);
 
 
 Route::get('/telegram', [TelegramController::class, 'hello']);

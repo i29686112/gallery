@@ -24,9 +24,10 @@ Film Never Die 400";
 
 const SAVE_PHOTO_FAILED_MESSAGE = "Some problem happened, please send it again";
 
-const NOT_PHOTO_MESSAGE = "Please send a photo";
+const NOT_PHOTO_MESSAGE = "Please send a photo with compress option";
 
 const NOT_SUPPORT_UNCOMPRESSED_PHOTO = "We are not support uncompressed photo yet";
 
 const DO_NOTHING_MESSAGE = "Do nothing";
 
+const NO_ADMIN_USING_MESSAGE = "Only admin can use the bot";

@@ -136,5 +136,60 @@ class TelegramControllerTest extends TestCase
         $response->assertSeeText(NOT_SUPPORT_UNCOMPRESSED_PHOTO);
     }
 
+    public function testSendMessageFromNotAdmin()
+    {
+        // test single photo file is enough.
+        // because if we send multiple photos, telegram will send multiple webhook callback with additional `media_group_id` field.
+
+        $updateId = mt_rand(1, 10000);
+        $messageId = mt_rand(1, 1000);
+        $chatId = 123456789;
+
+
+        $rawContent = '{    "update_id": ' . $updateId . ',    "message": {        "message_id": ' . $messageId . ',        "from": {            "id": ' . $chatId . ',            "is_bot": false,            "first_name": "Ian",            "last_name": "Chiang",            "username": "Ianixn",            "language_code": "zh-hans"        },        "chat": {            "id": ' . $chatId . ',            "first_name": "Ian",            "last_name": "Chiang",            "username": "Ianixn",            "type": "private"        },        "date": 1606448378,        "photo": [            {                "file_id": "AgACAgUAAxkBAANPX8B0-rWYzbPZxV6QZQo0vn6AxVMAAnSrMRs3KwABVl9n6W5MszNoBEgkbXQAAwEAAwIAA20AA-AAAQEAAR4E",                "file_unique_id": "AQADBEgkbXQAA-AAAQEAAQ",                "file_size": 5111,                "width": 320,                "height": 165            },            {                "file_id": "AgACAgUAAxkBAANPX8B0-rWYzbPZxV6QZQo0vn6AxVMAAnSrMRs3KwABVl9n6W5MszNoBEgkbXQAAwEAAwIAA3gAA94AAQEAAR4E",                "file_unique_id": "AQADBEgkbXQAA94AAQEAAQ",                "file_size": 12160,                "width": 676,                "height": 349            }        ],        "caption": "Vista 200"    }}';
+
+        $response = $this->call(
+            'POST',
+            '/telegram',
+            [],
+            [],
+            [],
+            $headers = [
+                'HTTP_CONTENT_LENGTH' => mb_strlen($rawContent, '8bit'),
+                'CONTENT_TYPE' => 'application/json',
+            ],
+            $rawContent);
+
+        $response->assertStatus(200);
+        $response->assertSeeText(NO_ADMIN_USING_MESSAGE);
+    }
+
+
+    public function testSendTextFromGroup()
+    {
+        // test single photo file is enough.
+        // because if we send multiple photos, telegram will send multiple webhook callback with additional `media_group_id` field.
+
+        $updateId = mt_rand(1, 10000);
+        $messageId = mt_rand(1, 1000);
+
+        $rawContent = '{    "update_id": ' . $updateId . ',    "message": {        "message_id": ' . $messageId . ',        "from": {            "id": 227278637,            "is_bot": false,            "first_name": "Ian",            "last_name": "Chiang",            "username": "Ianixn",            "language_code": "zh-hans"        },        "chat": {            "id": -419890217,            "title": "photo test",            "type": "group",            "all_members_are_administrators": true        },        "date": 1606880559,        "text": "aaa"    }}';
+
+        $response = $this->call(
+            'POST',
+            '/telegram',
+            [],
+            [],
+            [],
+            $headers = [
+                'HTTP_CONTENT_LENGTH' => mb_strlen($rawContent, '8bit'),
+                'CONTENT_TYPE' => 'application/json',
+            ],
+            $rawContent);
+
+        $response->assertStatus(200);
+        $response->assertSeeText(NO_ADMIN_USING_MESSAGE);
+    }
+
 
 }

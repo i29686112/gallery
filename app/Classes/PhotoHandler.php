@@ -110,11 +110,18 @@ class PhotoHandler
         /** @var Redis $redis */
         $redis = resolve('Redis');
 
-        // only set when the key is not exist, and it will auto deleted after 5 min
-        if ($redis->set($mediaGroupId, $caption,
-            ['NX', 'EX' => 5 * 60]))
+        try
         {
-            return true;
+            // only set when the key is not exist, and it will auto deleted after 5 min
+            if ($redis->set($mediaGroupId, $caption,
+                ['NX', 'EX' => 5 * 60]))
+            {
+                return true;
+            }
+        } catch (Exception $e)
+        {
+            log::error(exceptionToString($e));
+
         }
 
         return false;
@@ -127,7 +134,16 @@ class PhotoHandler
             /** @var Redis $redis */
             $redis = resolve('Redis');
 
-            return $redis->get($mediaGroupId);
+            try
+            {
+                return $redis->get($mediaGroupId);
+
+            } catch (Exception $e)
+            {
+                log::error(exceptionToString($e));
+
+            }
+            return false;
         }
 
         return $this->message->getCaption();

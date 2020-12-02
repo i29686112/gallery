@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Longman\TelegramBot\Entities\Update;
 use Longman\TelegramBot\Exception\TelegramException;
 use Longman\TelegramBot\Telegram;
 
@@ -12,14 +13,75 @@ class TelegramController extends Controller
     //
 
 
-    public function index(Request $request, Telegram $telegram)
+    public function index(Request $request, Telegram $telegram, $apiSecret)
     {
 
+
+        $input = $request->getContent();
+
+        $chatId = $this->getChatId($input, $telegram);
+
+        if ( ! $this->checkTheApiCallIsValid($chatId, $apiSecret))
+        {
+            if ($chatId === false)
+            {
+                // not a valid input.
+                return DO_NOTHING_MESSAGE;
+            }
+
+            \Longman\TelegramBot\Request::sendMessage([
+                'chat_id' => $chatId,
+                'text' => NO_ADMIN_USING_MESSAGE,
+            ]);
+            return NO_ADMIN_USING_MESSAGE;
+
+        }
+
+        $telegram->setCustomInput($input);
+
+        return $this->handleMessage($telegram);
+
+
+    }
+
+    public function hello(Request $request)
+    {
+
+        return 'hi';
+
+    }
+
+
+    /**
+     * @param $chatId
+     * @return bool
+     */
+    protected function checkTheApiCallIsValid($chatId, $apiSecret)
+    {
+
+        return ($chatId === (int)env('TELEGRAM_ADMIN_USER_ID')) && $apiSecret === env('TELEGRAM_API_SECRET');
+
+    }
+
+    private function getChatId(string $input, Telegram $telegram)
+    {
         try
         {
+            $update = new Update(json_decode($input, true), $telegram->getBotUsername());
+            return $update->getMessage()->getChat()->getId();
+        } catch (\Exception $e)
+        {
+            log::error(exceptionToString($e));
+        }
 
-            $telegram->setCustomInput($request->getContent());
+        return false;
+    }
 
+
+    private function handleMessage(Telegram $telegram)
+    {
+        try
+        {
             if ($telegram->handle())
             {
 
@@ -57,22 +119,13 @@ class TelegramController extends Controller
 
                 return NOT_PHOTO_MESSAGE;
             }
-
-            return DO_NOTHING_MESSAGE;
-
         } catch (TelegramException $e)
         {
             Log::error(exceptionToString($e));
-            return "failed";
         }
 
+        return DO_NOTHING_MESSAGE;
 
     }
 
-    public function hello(Request $request)
-    {
-
-        return 'hi';
-
-    }
 }
