@@ -18,7 +18,7 @@
 
       <ul class="cd-hero-slider">
 
-        <!-- Page 1 Gallery One -->
+        <!-- main gallery -->
         <li class="selected">
           <div class="cd-full-width">
             <div class="container-fluid js-tm-page-content" data-page-no="1" data-page-type="gallery">
@@ -40,7 +40,7 @@
                         <p class="tm-figure-description">{{
                           film.description
                         }}</p>
-                        <a :href="domain+film.cover_image_url">View
+                        <a :href="domain+film.cover_image_url" @click="show($event)">View
                           more</a>
                       </figcaption>
                     </figure>
@@ -87,6 +87,9 @@ import '@/assets/js/tether.min.js'
 // bootstrap的css在index.scss引用了
 import 'bootstrap'
 
+import '@/assets/js/hero-slider-main.js'
+import '@/assets/js/jquery.magnific-popup.min.js'
+
 import { getFilm } from '@/api/film'
 
 window.$ = window.jQuery = $
@@ -107,7 +110,11 @@ export default {
             if (response.success) {
               this.filmList = response.data.items
               this.isLoaded = true
-              this.initGallery()
+
+              const _this = this
+              this.$nextTick(function() {
+                _this.initGallery()
+              })
             }
           }).catch(e => {
             console.log(e)
@@ -118,39 +125,21 @@ export default {
     }
   },
   created() {
-    // this.initGallery()
     this.domain = process.env.VUE_APP_BASE_DOMAIN
   },
   methods: {
     initGallery() {
-      const _this = this
-      //
       // $('.gallery-one').magnificPopup({
       //   delegate: 'a', // child items selector, by clicking on it popup will open
-      //   type: 'image'
+      //   type: 'image',
+      //   gallery: {
+      //     enabled: true
+      //   }
       // })
 
-      this.$nextTick(function() {
-        /* Browser resized
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      -----------------------------------------*/
-        $(window).resize(function() {
-          const currentPageNo = $('.cd-hero-slider li.selected .js-tm-page-content').data('page-no')
-
-          // wait 3 seconds
-          setTimeout(function() {
-            _this.adjustHeightOfPage(currentPageNo)
-          }, 1000)
-        })
-
-        // Remove preloader (https://ihatetomatoes.net/create-custom-preloading-screen/)
-        $('body').addClass('loaded')
-
-        // Write current year in copyright text.
-        $('.tm-copyright-year').text(new Date().getFullYear())
-      })
+      this.attachResizeEvent()
     },
     adjustHeightOfPage(pageNo) {
-      console.log('adjustHeightOfPage')
       let pageContentHeight = 0
 
       const pageType = $('div[data-page-no="' + pageNo + '"]').data('page-type')
@@ -175,9 +164,47 @@ export default {
         $('.cd-hero-slider li:nth-of-type(' + pageNo + ')').css('min-height', '100%')
       }
     },
-
     onImgLoad() {
       this.adjustHeightOfPage(1) // Adjust page height
+    },
+    attachResizeEvent() {
+      const _this = this
+      $(window).resize(function() {
+        const currentPageNo = $('.cd-hero-slider li.selected .js-tm-page-content').data('page-no')
+
+        setTimeout(function() {
+          _this.adjustHeightOfPage(currentPageNo)
+        }, 1000)
+      })
+
+      // Remove preloader (https://ihatetomatoes.net/create-custom-preloading-screen/)
+      $('body').addClass('loaded')
+
+      // Write current year in copyright text.
+      $('.tm-copyright-year').text(new Date().getFullYear())
+    },
+    show($event) {
+      $event.preventDefault()
+
+      const photos = []
+
+      const _this = this
+      if (this.isLoaded) {
+        this.filmList.forEach(film => {
+          photos.push({ src: _this.domain + film.cover_image_url })
+        })
+
+        $.magnificPopup.open({
+          items: photos,
+          type: 'image',
+          gallery:
+                            {
+                              enabled: true
+                            }
+        },
+        0
+        )
+      }
     }
   }
 }
