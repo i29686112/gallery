@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FilmController;
+use App\Http\Controllers\PhotoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::get('/film', [FilmController::class, 'index']);
+
+Route::get('/photo/{filmId}', [PhotoController::class, 'index'])->where(['filmId' => '[0-9]+']);
 
 
 

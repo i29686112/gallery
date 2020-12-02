@@ -40,7 +40,10 @@
                         <p class="tm-figure-description">{{
                           film.description
                         }}</p>
-                        <a :href="domain+film.cover_image_url" @click="show($event)">View
+                        <a
+                          :href="domain+film.cover_image_url"
+                          @click="showPhotoInGallery(film.id,$event)"
+                        >View
                           more</a>
                       </figcaption>
                     </figure>
@@ -91,6 +94,7 @@ import '@/assets/js/hero-slider-main.js'
 import '@/assets/js/jquery.magnific-popup.min.js'
 
 import { getFilm } from '@/api/film'
+import { getPhoto } from '@/api/photo'
 
 window.$ = window.jQuery = $
 
@@ -183,28 +187,32 @@ export default {
       // Write current year in copyright text.
       $('.tm-copyright-year').text(new Date().getFullYear())
     },
-    show($event) {
+    showPhotoInGallery(filmId, $event) {
       $event.preventDefault()
 
       const photos = []
-
       const _this = this
-      if (this.isLoaded) {
-        this.filmList.forEach(film => {
-          photos.push({ src: _this.domain + film.cover_image_url })
-        })
 
-        $.magnificPopup.open({
-          items: photos,
-          type: 'image',
-          gallery:
-                            {
-                              enabled: true
-                            }
-        },
-        0
-        )
-      }
+      getPhoto(filmId).then(response => {
+        if (response.success) {
+          response.data.items.forEach(photo => {
+            photos.push({ src: _this.domain + photo.photo_url })
+          })
+
+          if (photos.length > 0) {
+            $.magnificPopup.open({
+              items: photos,
+              type: 'image',
+              gallery: { enabled: true }
+            }, 0)
+          } else {
+            alert('No photo is available under the film')
+          }
+          return true
+        }
+
+        console.log(response)
+      }).catch(e => console.log(e))
     }
   }
 }

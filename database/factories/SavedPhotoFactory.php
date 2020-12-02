@@ -23,7 +23,7 @@ class SavedPhotoFactory extends Factory
     {
         return [
             //
-            'file_path' => 'storage/photos/' . getRandomFileName() . '.jpg',
+            'file_path' => getRandomFileName(),
             'upload_telegram_user_id' => $this->faker->numerify('#########'),
             'film_id' => $this->faker->numberBetween(1, 18),
         ];

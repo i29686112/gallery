@@ -18,16 +18,28 @@ class SavedPhotoService
         $this->savedPhotoRepository = new SavedPhotoRepository();
     }
 
+    public function getByFilmId($filmId)
+    {
+        $photos = $this->savedPhotoRepository->index(['file_path'], ['film_id' => $filmId]);
+
+        for ($i = 0; $i < $photos->count(); $i++)
+        {
+
+            $photos[$i]->photo_url = '/storage/photos/' . $photos[$i]->file_path;
+        }
+
+        return $photos;
+    }
+
     public function create($fileName, $uploadTelegramUserId, $film)
     {
         if ( ! $fileName)
         {
             return false;
         }
-        $filePath = 'storage/photos/' . $fileName;
 
         return $this->savedPhotoRepository->create([
-                'file_path' => $filePath,
+                'file_path' => $fileName,
                 'upload_telegram_user_id' => $uploadTelegramUserId,
                 'film_id' => $film->id,
             ]
