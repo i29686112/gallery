@@ -1,4 +1,5 @@
+php -v
 php artisan storage:link
-mkdir -p ./storage/app/public/covers
-mkdir -p ./storage/app/public/photos
-cp -R ./.config/covers ./storage/app/public/covers
+mkdir -p ../storage/app/public/photos
+mkdir -p ../storage/app/public/covers
+cp -R ./.config/covers ../storage/app/public/covers

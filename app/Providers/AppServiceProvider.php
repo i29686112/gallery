@@ -27,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
         //
         if (env('APP_ENV') === 'production')
         {
+            // heroku 的mysql是舊的有長度限度，這邊要調整一下
             Schema::defaultStringLength(191);
         }
     }
