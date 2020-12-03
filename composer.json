@@ -54,6 +54,10 @@
             "app/Helpers/ConstList.php"
         ]
     },
+    "post-install-cmd": [
+        "ln -sr storage/app/public public/storage",
+        "cp -R ./.config/covers ./storage/app/public"
+    ],
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
