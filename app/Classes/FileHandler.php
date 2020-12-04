@@ -18,14 +18,17 @@ class FileHandler
         {
             if (env('APP_ENV') === 'production')
             {
+                //s3
+                $path = $folderName . '/' . $fileName;
+                $saveResult = Storage::disk('s3')->put($path, $file, ['visibility' => 'public']);
+
+            } else
+            {
+
                 // local storage folder
                 $saveResult = file_put_contents(storage_path('app/public/' . $folderName . '/' . $fileName),
                     $file,
                     LOCK_EX);
-            } else
-            {
-                //s3
-                $saveResult = Storage::disk('s3')->put($fileName . '/' . $fileName, $file);
             }
         } catch (\Exception $e)
         {
