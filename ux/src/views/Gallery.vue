@@ -28,7 +28,7 @@
                   <div v-for="(film,index) in filmList" :key="index" class="grid-item">
                     <figure class="effect-sadie">
                       <img
-                        :src="domain+film.cover_image_url"
+                        :src="film.cover_image_url"
                         alt="Image"
                         class="img-fluid tm-img"
                         @load="onImgLoad"
@@ -41,7 +41,7 @@
                           film.description
                         }}</p>
                         <a
-                          :href="domain+film.cover_image_url"
+                          :href="film.cover_image_url"
                           @click="showPhotoInGallery(film.id,$event)"
                         >View
                           more</a>
@@ -102,7 +102,6 @@ export default {
   data() {
     return {
       filmList: [],
-      domain: '',
       isLoaded: false
     }
   },
@@ -129,7 +128,6 @@ export default {
     }
   },
   created() {
-    this.domain = process.env.VUE_APP_BASE_DOMAIN
   },
   methods: {
     initGallery() {
@@ -191,12 +189,11 @@ export default {
       $event.preventDefault()
 
       const photos = []
-      const _this = this
 
       getPhoto(filmId).then(response => {
         if (response.success) {
           response.data.items.forEach(photo => {
-            photos.push({ src: _this.domain + photo.photo_url })
+            photos.push({ src: photo.photo_url })
           })
 
           if (photos.length > 0) {

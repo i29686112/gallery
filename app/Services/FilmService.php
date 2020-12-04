@@ -4,6 +4,7 @@
 namespace App\Services;
 
 
+use App\Classes\FileHandler;
 use App\Repositories\FilmRepository;
 
 class FilmService
@@ -27,8 +28,7 @@ class FilmService
 
         for ($i = 0; $i < $films->count(); $i++)
         {
-
-            $films[$i]->cover_image_url = '/storage/covers/' . $films[$i]->cover_image_path;
+            $films[$i]->cover_image_url = FileHandler::getUrl('covers', $films[$i]->cover_image_name);
         }
 
 

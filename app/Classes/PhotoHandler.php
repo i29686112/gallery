@@ -239,13 +239,9 @@ class PhotoHandler
 
             $mimeType = $this->getMimeTypeFromBinString($file);
 
-            $photoName = getRandomFileName(getFileExtensionNameFromMimeType($mimeType));
+            $photoName = getRandomFileName(getFileExtensionNameFromMimeType($mimeType));;
 
-            $savePhotoResult = file_put_contents(storage_path('app/public/photos/' . $photoName),
-                $file,
-                LOCK_EX);
-
-            if ($savePhotoResult === false)
+            if (FileHandler::put('photos', $photoName, $file) === false)
             {
                 //save fail
                 throw new \Exception($this->getFileUrl($filePath));

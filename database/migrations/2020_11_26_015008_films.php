@@ -18,7 +18,7 @@ class Films extends Migration
             $table->id();
             $table->string('name', 100)->unique()->comment('底片名稱');
             $table->string('key_name', 100)->unique()->comment('底片名稱(配對關鍵字用)');
-            $table->string('cover_image_path', 100)->comment('底片封面照片路徑');
+            $table->string('cover_image_name', 100)->comment('底片封面照片路徑');
             $table->string('description', 100)->comment('底片描述');
             $table->timestamps();
         });

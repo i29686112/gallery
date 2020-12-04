@@ -4,6 +4,7 @@
 namespace App\Services;
 
 
+use App\Classes\FileHandler;
 use App\Repositories\SavedPhotoRepository;
 
 class SavedPhotoService
@@ -20,12 +21,12 @@ class SavedPhotoService
 
     public function getByFilmId($filmId)
     {
-        $photos = $this->savedPhotoRepository->index(['file_path'], ['film_id' => $filmId]);
+        $photos = $this->savedPhotoRepository->index(['file_name'], ['film_id' => $filmId]);
 
         for ($i = 0; $i < $photos->count(); $i++)
         {
 
-            $photos[$i]->photo_url = '/storage/photos/' . $photos[$i]->file_path;
+            $photos[$i]->photo_url = FileHandler::getUrl('photos', $photos[$i]->file_name);
         }
 
         return $photos;
@@ -39,7 +40,7 @@ class SavedPhotoService
         }
 
         return $this->savedPhotoRepository->create([
-                'file_path' => $fileName,
+                'file_name' => $fileName,
                 'upload_telegram_user_id' => $uploadTelegramUserId,
                 'film_id' => $film->id,
             ]

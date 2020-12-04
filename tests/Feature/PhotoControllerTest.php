@@ -39,7 +39,7 @@ class PhotoControllerTest extends TestCase
             "data" => [
                 "items" => [
                     '*' => [
-                        'file_path',
+                        'file_name',
                         'photo_url',
                     ],
                 ],

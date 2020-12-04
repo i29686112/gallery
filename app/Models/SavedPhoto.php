@@ -10,7 +10,7 @@ class SavedPhoto extends Model
     use HasFactory;
 
     protected $fillable = [
-        'file_path',
+        'file_name',
         'upload_telegram_user_id',
         'film_id',
     ];
