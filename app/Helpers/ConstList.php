@@ -31,3 +31,5 @@ const NOT_SUPPORT_UNCOMPRESSED_PHOTO = "We are not support uncompressed photo ye
 const DO_NOTHING_MESSAGE = "Do nothing";
 
 const NO_ADMIN_USING_MESSAGE = "Only admin can use the bot";
+
+const WE_GOT_YOUR_FILM = 'We got your film:';

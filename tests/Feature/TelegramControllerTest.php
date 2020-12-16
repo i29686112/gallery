@@ -19,7 +19,7 @@ class TelegramControllerTest extends TestCase
 
         $response = $this->call(
             'POST',
-            '/telegram',
+            '/telegram/' . env('TELEGRAM_API_SECRET'),
             [],
             [],
             [],
@@ -45,7 +45,7 @@ class TelegramControllerTest extends TestCase
 
         $response = $this->call(
             'POST',
-            '/telegram',
+            '/telegram/' . env('TELEGRAM_API_SECRET'),
             [],
             [],
             [],
@@ -72,7 +72,7 @@ class TelegramControllerTest extends TestCase
 
         $response = $this->call(
             'POST',
-            '/telegram',
+            '/telegram/' . env('TELEGRAM_API_SECRET'),
             [],
             [],
             [],
@@ -98,7 +98,7 @@ class TelegramControllerTest extends TestCase
 
         $response = $this->call(
             'POST',
-            '/telegram',
+            '/telegram/' . env('TELEGRAM_API_SECRET'),
             [],
             [],
             [],
@@ -122,7 +122,7 @@ class TelegramControllerTest extends TestCase
 
         $response = $this->call(
             'POST',
-            '/telegram',
+            '/telegram/' . env('TELEGRAM_API_SECRET'),
             [],
             [],
             [],
@@ -150,7 +150,7 @@ class TelegramControllerTest extends TestCase
 
         $response = $this->call(
             'POST',
-            '/telegram',
+            '/telegram/' . env('TELEGRAM_API_SECRET'),
             [],
             [],
             [],
@@ -177,7 +177,7 @@ class TelegramControllerTest extends TestCase
 
         $response = $this->call(
             'POST',
-            '/telegram',
+            '/telegram/' . env('TELEGRAM_API_SECRET'),
             [],
             [],
             [],
@@ -191,5 +191,51 @@ class TelegramControllerTest extends TestCase
         $response->assertSeeText(NO_ADMIN_USING_MESSAGE);
     }
 
+    public function testSendListCommandWithWrongFilmName()
+    {
+        $messageId = mt_rand(1, 1000);
+        $updateId = mt_rand(1, 10000);
+
+        $rawContent = '{    "update_id": ' . $updateId . ',    "message": {        "message_id": ' . $messageId . ',        "from": {            "id": 227278637,            "is_bot": false,            "first_name": "Ian",            "last_name": "Chiang",            "username": "Ianixn",            "language_code": "zh-hans"        },        "chat": {            "id": 227278637,            "first_name": "Ian",            "last_name": "Chiang",            "username": "Ianixn",            "type": "private"        },        "date": 1606445974,        "text": "list 111"    }}';
+
+        $response = $this->call(
+            'POST',
+            '/telegram/' . env('TELEGRAM_API_SECRET'),
+            [],
+            [],
+            [],
+            $headers = [
+                'HTTP_CONTENT_LENGTH' => mb_strlen($rawContent, '8bit'),
+                'CONTENT_TYPE' => 'application/json',
+            ],
+            $rawContent);
+
+        $response->assertStatus(200);
+        // 因為有分行，我們判斷前10個字元就好
+        $response->assertSeeText(substr(UNKNOWN_FILM_MESSAGE, 0, 10));
+    }
+
+    public function testSendListCommandWithExistFilmName()
+    {
+        $messageId = mt_rand(1, 1000);
+        $updateId = mt_rand(1, 10000);
+
+        $rawContent = '{    "update_id": ' . $updateId . ',    "message": {        "message_id": ' . $messageId . ',        "from": {            "id": 227278637,            "is_bot": false,            "first_name": "Ian",            "last_name": "Chiang",            "username": "Ianixn",            "language_code": "zh-hans"        },        "chat": {            "id": 227278637,            "first_name": "Ian",            "last_name": "Chiang",            "username": "Ianixn",            "type": "private"        },        "date": 1606445974,        "text": "list vista 200"    }}';
+
+        $response = $this->call(
+            'POST',
+            '/telegram/' . env('TELEGRAM_API_SECRET'),
+            [],
+            [],
+            [],
+            $headers = [
+                'HTTP_CONTENT_LENGTH' => mb_strlen($rawContent, '8bit'),
+                'CONTENT_TYPE' => 'application/json',
+            ],
+            $rawContent);
+
+        $response->assertStatus(200);
+        $response->assertSeeText(WE_GOT_YOUR_FILM);
+    }
 
 }

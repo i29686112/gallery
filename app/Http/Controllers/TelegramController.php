@@ -96,28 +96,32 @@ class TelegramController extends Controller
 
                 $responseText = $response->getResult()->text;
 
-                if (stripos($responseText, SAVE_PHOTO_SUCCESS_MESSAGE) !== false)
+
+                $resultText = NOT_PHOTO_MESSAGE;
+                foreach ([
+                             SAVE_PHOTO_SUCCESS_MESSAGE,
+                             SAVE_PHOTO_FAILED_MESSAGE,
+                             UNKNOWN_FILM_MESSAGE,
+                             NOT_SUPPORT_UNCOMPRESSED_PHOTO,
+                             WE_GOT_YOUR_FILM,
+                         ] as $message)
                 {
-                    return SAVE_PHOTO_SUCCESS_MESSAGE;
+
+                    if (stripos($responseText, $message) !== false)
+                    {
+                        $resultText = $message;
+                    }
+
+                    // 因為有分行，我們判斷前10個字元就好
+                    if (stripos(UNKNOWN_FILM_MESSAGE, substr($responseText, 0, 10)) !== false)
+                    {
+                        $resultText = UNKNOWN_FILM_MESSAGE;
+                    }
+
                 }
 
-                if (stripos($responseText, SAVE_PHOTO_FAILED_MESSAGE) !== false)
-                {
-                    return SAVE_PHOTO_FAILED_MESSAGE;
-                }
 
-                // 因為有分行，我們判斷前10個字元就好
-                if (stripos(UNKNOWN_FILM_MESSAGE, substr($responseText, 0, 10)) !== false)
-                {
-                    return UNKNOWN_FILM_MESSAGE;
-                }
-
-                if (stripos($responseText, NOT_SUPPORT_UNCOMPRESSED_PHOTO) !== false)
-                {
-                    return NOT_SUPPORT_UNCOMPRESSED_PHOTO;
-                }
-
-                return NOT_PHOTO_MESSAGE;
+                return $resultText;
             }
         } catch (TelegramException $e)
         {
