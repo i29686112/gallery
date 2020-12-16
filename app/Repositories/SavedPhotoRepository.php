@@ -22,6 +22,20 @@ class SavedPhotoRepository
         $this->savedPhoto = new SavedPhoto();
     }
 
+    public function delete($id)
+    {
+
+        try
+        {
+            return $this->savedPhoto->where('id', $id)->delete();
+
+        } catch (\Exception $e)
+        {
+            log::error(exceptionToString($e));
+        }
+        return false;
+    }
+
     public function create($data)
     {
 
@@ -50,6 +64,12 @@ class SavedPhotoRepository
         {
             $query->where('film_id', $conditions['film_id']);
         }
+
+        if (isset($conditions['id']) && is_numeric($conditions['id']))
+        {
+            $query->where('id', $conditions['id']);
+        }
+
 
         if (is_array($orderBy))
         {

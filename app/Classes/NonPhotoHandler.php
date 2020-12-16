@@ -4,8 +4,8 @@
 namespace App\Classes;
 
 
-use App\Services\FilmService;
-use App\Services\SavedPhotoService;
+use App\Classes\CustomCommands\DeletePhoto;
+use App\Classes\CustomCommands\ListPhoto;
 
 class NonPhotoHandler extends PhotoHandler
 {
@@ -14,37 +14,17 @@ class NonPhotoHandler extends PhotoHandler
     public function process()
     {
 
-        if (stripos(mb_strtolower($this->message->getText()), 'list') === 0)
+        $this->responseText = NOT_PHOTO_MESSAGE;
+
+        if ($response = ListPhoto::checkAndGetResponse($this->message))
         {
-            //list all picture under a film
-            $filmName = str_replace('list ', '', $this->message->getText());
+            $this->responseText = $response;
 
-            $filmService = new FilmService();
+        }
 
-            if ($film = $filmService->getFilmFromCaption($filmName))
-            {
-                $savedPhotoService = new SavedPhotoService();
-                $photoList = $savedPhotoService->getByFilmId($film->id, ['file_name', 'id']);
-
-                $this->responseText = WE_GOT_YOUR_FILM . $filmName;
-
-                foreach ($photoList as $photo)
-                {
-                    $this->responseText .= "\n({$photo->id})\n" . $photo->photo_url;
-                }
-
-
-            } else
-            {
-
-                $this->responseText = UNKNOWN_FILM_MESSAGE;
-
-            }
-
-
-        } else
+        if ($response = DeletePhoto::checkAndGetResponse($this->message))
         {
-            $this->responseText = NOT_PHOTO_MESSAGE;
+            $this->responseText = $response;
         }
 
 

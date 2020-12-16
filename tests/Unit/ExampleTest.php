@@ -2,10 +2,15 @@
 
 namespace Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
+use Illuminate\Support\Facades\Storage;
+use Tests\CreatesApplication;
+use Tests\TestCase;
 
 class ExampleTest extends TestCase
 {
+    use CreatesApplication;
+
+
     /**
      * A basic test example.
      *
@@ -13,6 +18,7 @@ class ExampleTest extends TestCase
      */
     public function testBasicTest()
     {
-        $this->assertTrue(true);
+
+        $this->assertTrue(Storage::disk('local')->put('public/photos/example.txt', 'Contents'));
     }
 }

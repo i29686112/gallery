@@ -9,6 +9,40 @@ use Illuminate\Support\Facades\Storage;
 class FileHandler
 {
 
+    public static function delete($folderName, $fileName)
+    {
+
+        $deleteResult = false;
+        try
+        {
+            $path = $folderName . '/' . $fileName;
+            if (env('APP_ENV') === 'production')
+            {
+                //s3
+                $deleteResult = Storage::disk('s3')->delete($path);
+
+            } else
+            {
+                $path = 'public/' . $path;
+                // local storage folder
+                $deleteResult = Storage::delete($path);
+            }
+
+            if ($deleteResult === false)
+            {
+                throw new \Exception('Save file failed with path:' . $path . '/' . $fileName);
+            }
+        } catch (\Exception $e)
+        {
+
+            log::error('delete file error (' . $e->getMessage() . ')');
+        }
+
+
+        return $deleteResult;
+
+    }
+
 
     public static function put($folderName, $fileName, $file)
     {
@@ -16,20 +50,26 @@ class FileHandler
         $saveResult = false;
         try
         {
+            $path = $folderName . '/' . $fileName;
             if (env('APP_ENV') === 'production')
             {
                 //s3
-                $path = $folderName . '/' . $fileName;
                 $saveResult = Storage::disk('s3')->put($path, $file, ['visibility' => 'public']);
 
             } else
             {
 
+                $path = 'public/' . $path;
+
                 // local storage folder
-                $saveResult = file_put_contents(storage_path('app/public/' . $folderName . '/' . $fileName),
-                    $file,
-                    LOCK_EX);
+                $saveResult = Storage::disk('local')->put($path, $file);
             }
+
+            if ($saveResult === false)
+            {
+                throw new \Exception('Save file failed with path:' . $folderName . '/' . $fileName);
+            }
+
         } catch (\Exception $e)
         {
 

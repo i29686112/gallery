@@ -33,3 +33,10 @@ const DO_NOTHING_MESSAGE = "Do nothing";
 const NO_ADMIN_USING_MESSAGE = "Only admin can use the bot";
 
 const WE_GOT_YOUR_FILM = 'We got your film:';
+
+const WE_DELETED_YOUR_PHOTO = 'We deleted your photo:';
+
+const WE_DELETE_YOUR_PHOTO_FAILED = 'We delete your photo failed:';
+
+const INVALID_PHOTO_ID = 'Invalid photo id';
+

@@ -104,6 +104,9 @@ class TelegramController extends Controller
                              UNKNOWN_FILM_MESSAGE,
                              NOT_SUPPORT_UNCOMPRESSED_PHOTO,
                              WE_GOT_YOUR_FILM,
+                             WE_DELETED_YOUR_PHOTO,
+                             WE_DELETE_YOUR_PHOTO_FAILED,
+                             INVALID_PHOTO_ID,
                          ] as $message)
                 {
 
