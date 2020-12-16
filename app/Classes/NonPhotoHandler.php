@@ -5,6 +5,7 @@ namespace App\Classes;
 
 
 use App\Services\FilmService;
+use App\Services\SavedPhotoService;
 
 class NonPhotoHandler extends PhotoHandler
 {
@@ -22,8 +23,17 @@ class NonPhotoHandler extends PhotoHandler
 
             if ($film = $filmService->getFilmFromCaption($filmName))
             {
+                $savedPhotoService = new SavedPhotoService();
+                $photoList = $savedPhotoService->getByFilmId($film->id, ['file_name', 'id']);
 
                 $this->responseText = WE_GOT_YOUR_FILM . $filmName;
+
+                foreach ($photoList as $photo)
+                {
+                    $this->responseText .= "\n({$photo->id})\n" . $photo->photo_url;
+                }
+
+
             } else
             {
 

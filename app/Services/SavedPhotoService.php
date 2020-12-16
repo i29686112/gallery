@@ -19,9 +19,9 @@ class SavedPhotoService
         $this->savedPhotoRepository = new SavedPhotoRepository();
     }
 
-    public function getByFilmId($filmId)
+    public function getByFilmId($filmId, $fields = ['file_name'])
     {
-        $photos = $this->savedPhotoRepository->index(['file_name'], ['film_id' => $filmId]);
+        $photos = $this->savedPhotoRepository->index($fields, ['film_id' => $filmId]);
 
         for ($i = 0; $i < $photos->count(); $i++)
         {
