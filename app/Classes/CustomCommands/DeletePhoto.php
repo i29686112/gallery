@@ -14,30 +14,37 @@ class DeletePhoto
     {
         $responseText = '';
 
-        if (stripos(mb_strtolower($message->getText()), 'delete') === false)
-        {
+        if (stripos(mb_strtolower($message->getText()), 'delete') === false) {
             return $responseText;
         }
 
-        //list all picture under a film
-        $photoId = str_replace('delete ', '', $message->getText());
-
-        if ($photoId === '' || ! is_numeric($photoId))
-        {
-            return INVALID_PHOTO_ID;
-        }
+        $photoIdArray = self::getId($message->getText());
 
         $savedPhotoService = new SavedPhotoService();
 
-        if ($film = $savedPhotoService->deleteById($photoId))
-        {
-            $responseText = WE_DELETED_YOUR_PHOTO . $photoId;
-        } else
-        {
-            $responseText = WE_DELETE_YOUR_PHOTO_FAILED . $photoId;
+        $deletedIdArray = $savedPhotoService->deleteByIdArray($photoIdArray);
+        if (count($deletedIdArray) > 0) {
+            $responseText = WE_DELETED_YOUR_PHOTO . join(',', $deletedIdArray);
+        } else {
+            $responseText = WE_DELETE_YOUR_PHOTO_FAILED . join(',', $photoIdArray);
         }
 
         return $responseText;
+    }
+
+
+    private static function getId($text)
+    {
+        //remove delete and blank
+        $idArray = str_getcsv(preg_replace('/delete[\s]*/m', '', strtolower($text)));
+
+        return array_filter($idArray, function ($id) {
+
+            return is_numeric($id);
+
+        });
+
+
     }
 
 }

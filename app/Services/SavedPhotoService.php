@@ -7,6 +7,7 @@ namespace App\Services;
 use App\Classes\FileHandler;
 use App\Repositories\SavedPhotoRepository;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class SavedPhotoService
 {
@@ -24,8 +25,7 @@ class SavedPhotoService
     {
         $photos = $this->savedPhotoRepository->index($fields, ['film_id' => $filmId]);
 
-        for ($i = 0; $i < $photos->count(); $i++)
-        {
+        for ($i = 0; $i < $photos->count(); $i++) {
 
             $photos[$i]->photo_url = FileHandler::getUrl('photos', $photos[$i]->file_name);
         }
@@ -35,54 +35,63 @@ class SavedPhotoService
 
     public function getById($photoId, $fields = ['file_name'])
     {
-        return $this->savedPhotoRepository->index($fields, ['id' => $photoId], null, 1, 1)->first();
+        return $this->savedPhotoRepository->index($fields, ['id' => $photoId]);
     }
 
     public function create($fileName, $uploadTelegramUserId, $film)
     {
-        if ( ! $fileName)
-        {
+        if (!$fileName) {
             return false;
         }
 
         return $this->savedPhotoRepository->create([
-                'file_name' => $fileName,
+                'file_name'               => $fileName,
                 'upload_telegram_user_id' => $uploadTelegramUserId,
-                'film_id' => $film->id,
+                'film_id'                 => $film->id,
             ]
         );
     }
 
-    public function deleteById($photoId)
+    public function deleteByIdArray($photoId)
     {
-        if ( ! $photoId)
-        {
-            return false;
+
+        $deletedId = [];
+
+        if (is_numeric($photoId)) {
+            $photoId = [$photoId];
         }
 
-        DB::beginTransaction();
+        if (is_array($photoId) && count($photoId) === 0) {
+            return [];
+        }
 
-        try
-        {
-            $photo = $this->getById($photoId, $fields = ['file_name']);
 
-            if ($this->savedPhotoRepository->delete($photoId) === false)
-            {
-                throw new \Exception('Delete photo DB ROW failed with id:' . $photoId);
+        try {
+            $photos = $this->getById($photoId, $fields = ['id', 'file_name']);
+
+
+            foreach ($photos as $photo) {
+
+                DB::beginTransaction();
+
+                if ($this->savedPhotoRepository->delete($photo->id) === false) {
+                    throw new \Exception('Delete photo DB ROW failed with id:' . $photo->id);
+                }
+
+                if (FileHandler::delete('photos', $photo->file_name) === false) {
+                    throw new \Exception('Delete photo FILE failed with id:' . $photo->id);
+                }
+
+                $deletedId[] = $photo->id;
+                DB::commit();
             }
 
-            if (FileHandler::delete('photos', $photo->file_name) === false)
-            {
-                throw new \Exception('Delete photo FILE failed with id:' . $photoId);
-            }
-
-            DB::commit();
-
-            return true;
-        } catch (\Exception $exception)
-        {
+        } catch (\Exception $exception) {
+            log::error(exceptionToString($exception));
             DB::rollback();
         }
+
+        return $deletedId;
 
     }
 }

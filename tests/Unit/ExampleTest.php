@@ -21,4 +21,13 @@ class ExampleTest extends TestCase
 
         $this->assertTrue(Storage::disk('local')->put('public/photos/example.txt', 'Contents'));
     }
+
+    public function test_str_getcsv()
+    {
+
+
+        $str = '11--111';
+        $str_getcsv = str_getcsv($str);
+        $this->assertIsArray($str_getcsv);
+    }
 }

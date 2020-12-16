@@ -25,12 +25,10 @@ class SavedPhotoRepository
     public function delete($id)
     {
 
-        try
-        {
+        try {
             return $this->savedPhoto->where('id', $id)->delete();
 
-        } catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             log::error(exceptionToString($e));
         }
         return false;
@@ -39,12 +37,10 @@ class SavedPhotoRepository
     public function create($data)
     {
 
-        try
-        {
+        try {
             return $this->savedPhoto->create($data);
 
-        } catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             log::error(exceptionToString($e));
         }
         return false;
@@ -56,31 +52,32 @@ class SavedPhotoRepository
         $orderBy = ['updated_at' => -1],
         $page = false,
         $rowPerPage = false
-    ) {
+    )
+    {
 
         $query = $this->savedPhoto->newQuery();
 
-        if (isset($conditions['film_id']) && is_numeric($conditions['film_id']))
-        {
+        if (isset($conditions['film_id']) && is_numeric($conditions['film_id'])) {
             $query->where('film_id', $conditions['film_id']);
         }
 
-        if (isset($conditions['id']) && is_numeric($conditions['id']))
-        {
-            $query->where('id', $conditions['id']);
+
+        if (isset($conditions['id'])) {
+            if (is_array($conditions['id'])) {
+                $query->whereIn('id', $conditions['id']);
+            } else if (is_numeric($conditions['id'])) {
+                $query->where('id', $conditions['id']);
+            }
         }
 
 
-        if (is_array($orderBy))
-        {
-            foreach ($orderBy as $orderField => $sort)
-            {
+        if (is_array($orderBy)) {
+            foreach ($orderBy as $orderField => $sort) {
                 $query->orderBy($orderField, ($sort === -1) ? 'desc' : 'asc');
             }
         }
 
-        if (is_numeric($page) && is_numeric($rowPerPage))
-        {
+        if (is_numeric($page) && is_numeric($rowPerPage)) {
             $query->offset(($page - 1) * $rowPerPage);
             $query->limit($rowPerPage);
         }
