@@ -80,3 +80,8 @@ Gallery樣式
 
 ![透過指令刪除照片，及確認底片已被刪除](../master/docs/deleteImage.png)
 透過指令刪除照片，及確認底片已被刪除
+
+
+# TODO
+- 導入Circle CI自動佈署
+- 用Vue刻另一個功能較多的後台
