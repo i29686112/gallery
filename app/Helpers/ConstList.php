@@ -36,7 +36,8 @@ const WE_GOT_YOUR_FILM = 'We got your film:';
 
 const WE_DELETED_YOUR_PHOTO = 'We deleted your photo:';
 
-const WE_DELETE_YOUR_PHOTO_FAILED = 'We delete your photo failed:';
+const WE_DELETE_YOUR_PHOTO_FAILED = 'We delete your photo FAILED:';
 
-const INVALID_PHOTO_ID = 'Invalid photo id';
+const PLEASE_INPUT_VALID_PHOTO_ID = 'Please input valid photo id';
 
+const BUT_FAILED_DELETE = "But failed delete:";

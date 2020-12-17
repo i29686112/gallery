@@ -16,14 +16,12 @@ class NonPhotoHandler extends PhotoHandler
 
         $this->responseText = NOT_PHOTO_MESSAGE;
 
-        if ($response = ListPhoto::checkAndGetResponse($this->message))
-        {
+        if ($response = ListPhoto::checkAndGetResponse($this->message)) {
             $this->responseText = $response;
 
         }
 
-        if ($response = DeletePhoto::checkAndGetResponse($this->message))
-        {
+        if ($response = DeletePhoto::checkAndGetResponse($this->message)) {
             $this->responseText = $response;
         }
 

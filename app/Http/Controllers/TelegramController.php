@@ -21,17 +21,15 @@ class TelegramController extends Controller
 
         $chatId = $this->getChatId($input, $telegram);
 
-        if ( ! $this->checkTheApiCallIsValid($chatId, $apiSecret))
-        {
-            if ($chatId === false)
-            {
+        if (!$this->checkTheApiCallIsValid($chatId, $apiSecret)) {
+            if ($chatId === false) {
                 // not a valid input.
                 return DO_NOTHING_MESSAGE;
             }
 
             \Longman\TelegramBot\Request::sendMessage([
                 'chat_id' => $chatId,
-                'text' => NO_ADMIN_USING_MESSAGE,
+                'text'    => NO_ADMIN_USING_MESSAGE,
             ]);
             return NO_ADMIN_USING_MESSAGE;
 
@@ -65,12 +63,10 @@ class TelegramController extends Controller
 
     private function getChatId(string $input, Telegram $telegram)
     {
-        try
-        {
+        try {
             $update = new Update(json_decode($input, true), $telegram->getBotUsername());
             return $update->getMessage()->getChat()->getId();
-        } catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             log::error(exceptionToString($e));
         }
 
@@ -80,15 +76,12 @@ class TelegramController extends Controller
 
     private function handleMessage(Telegram $telegram)
     {
-        try
-        {
-            if ($telegram->handle())
-            {
+        try {
+            if ($telegram->handle()) {
 
                 $response = $telegram->getLastCommandResponse();
 
-                if ( ! $response)
-                {
+                if (!$response) {
                     // we need check again cause sometime it may got NULL
                     return 'ok';
 
@@ -106,18 +99,16 @@ class TelegramController extends Controller
                              WE_GOT_YOUR_FILM,
                              WE_DELETED_YOUR_PHOTO,
                              WE_DELETE_YOUR_PHOTO_FAILED,
-                             INVALID_PHOTO_ID,
-                         ] as $message)
-                {
+                             BUT_FAILED_DELETE,
+                             PLEASE_INPUT_VALID_PHOTO_ID
+                         ] as $message) {
 
-                    if (stripos($responseText, $message) !== false)
-                    {
+                    if (stripos($responseText, $message) !== false) {
                         $resultText = $message;
                     }
 
                     // 因為有分行，我們判斷前10個字元就好
-                    if (stripos(UNKNOWN_FILM_MESSAGE, substr($responseText, 0, 10)) !== false)
-                    {
+                    if (stripos(UNKNOWN_FILM_MESSAGE, substr($responseText, 0, 10)) !== false) {
                         $resultText = UNKNOWN_FILM_MESSAGE;
                     }
 
@@ -126,8 +117,7 @@ class TelegramController extends Controller
 
                 return $resultText;
             }
-        } catch (TelegramException $e)
-        {
+        } catch (TelegramException $e) {
             Log::error(exceptionToString($e));
         }
 

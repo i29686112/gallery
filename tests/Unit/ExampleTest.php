@@ -26,7 +26,7 @@ class ExampleTest extends TestCase
     {
 
 
-        $str = '11--111';
+        $str = '1,2,3,4';
         $str_getcsv = str_getcsv($str);
         $this->assertIsArray($str_getcsv);
     }
