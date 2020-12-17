@@ -69,7 +69,6 @@ Gallery樣式
 上傳照片，Cpation填入底片名稱
 
 ![就能從前台，看到該照片出現在對應的底片Gallery下](../master/docs/galleryUploaded.png)
-
 就能從前台，看到該照片出現在對應的底片Gallery下
 
 也可以透過bot得到當前某個底片下，有什麼照片
