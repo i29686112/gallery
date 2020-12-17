@@ -10,7 +10,7 @@ use Longman\TelegramBot\Entities\Message;
 class DeletePhoto
 {
 
-    public static function checkAndGetResponse(Message $message, $savedPhotoService)
+    public static function checkAndGetResponse(Message $message, $savedPhotoService = null)
     {
         $responseText = '';
 
