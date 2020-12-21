@@ -13,6 +13,9 @@ jobs:
       - image: circleci/php:7.4-node-browsers
 
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "64:ff:bd:b5:a4:31:f9:04:20:48:f7:f6:4d:24:8a:ad"
       - checkout
       - run: cp .env.example .env
       - run:
@@ -22,7 +25,7 @@ jobs:
       - run: sudo apt-get install -y git-ftp
       - run: sudo apt install nodejs & nodejs -v
       - run: sudo apt install npm | sudo sh & npm -v
-      - run: cd ux && npm install && npm run build:"$env_name"
+      - run: cd ux && npm install && npm run build
       - run: rsync -a ./frontend/ ./public/
 #      - run: git config git-ftp.syncroot .
 #      - run:
