@@ -1,0 +1,31 @@
+# PHP CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-php/ for more details
+#
+version: 2
+jobs:
+  build:
+    branches:
+      only:
+        - master
+    docker:
+      # Specify the version you desire here
+      - image: circleci/php:7.4-node-browsers
+
+    steps:
+      - checkout
+      - run: cp .env.example .env
+      - run:
+          name: replace env variables
+          command: sh ./.circleci/replace_env_variables.sh
+      - run: sudo apt update
+      - run: sudo apt-get install -y git-ftp
+      - run: sudo apt install nodejs & nodejs -v
+      - run: sudo apt install npm | sudo sh & npm -v
+      - run: cd ux && npm install && npm run build:"$env_name"
+      - run: rsync -a ./frontend/ ./public/
+#      - run: git config git-ftp.syncroot .
+#      - run:
+#          name: git ftp
+#          command: sh ./.circleci/push_ftp.sh
+#          no_output_timeout: 10m
