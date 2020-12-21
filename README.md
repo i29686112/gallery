@@ -1,61 +1,87 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# 作品簡介
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# 使用技術
 
-## About Laravel
+後端：
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- PHP with Laravel 8
+- [Telegram bot PHP SDK](https://github.com/php-telegram-bot/core/wiki)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+前端：
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Vue 2 (Axios), 從Vue CLI產生專案
+- [版型來源](https://www.free-css.com/assets/files/free-css-templates/preview/page239/fluid-gallery/)，將該版型改寫成Vue的component，及整合原本舊的js檔案
 
-## Learning Laravel
+伺服器、資料庫：
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- AWS EC2
+- AWS S3 (放照片圖檔)
+- MySQL ( on AWS RDS)
+- Redis (on AWS ElastiCache)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+其他：
 
-## Laravel Sponsors
+- [Github](https://github.com/i29686112/gallery)
+- Unit test with mockery及Laravel [HTTP Tests](https://laravel.com/docs/8.x/http-tests)
+- Development stacks : PHP Storm + Homestead ( LNMP ) + ngrok
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+# 專案架構
 
-### Premium Partners
+大部份都是Laraval的專案架構，以下列幾個比較重要的
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
+### 前端位置
 
-## Contributing
+ux/*
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 前端主要vue檔
 
-## Code of Conduct
+ux/src/views/Gallery.vue
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 版型原始的html+js檔(未改寫成Vue前)
 
-## Security Vulnerabilities
+ux-origin/
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Laravel http test 路徑
 
-## License
+tests/Feature/*
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Unit test路徑
+
+tests/Unit/*
+
+比較詳細的unit test檔tests/Unit/App/Classes/CustomCommands/DeletePhotoTest.php
+
+# 專案說明
+
+因為我本來就有底片攝影的興趣，所以建立了一個網站可以把底片拍出來的成果，根據底片進行分類
+
+![前台樣式](../master/docs/frontendStyle.png)
+前台樣式
+
+點擊某個底片後，就會顯示出該底片下的成果照
+
+![Gallery樣式](../master/docs/galleryUploaded.png)
+Gallery樣式
+
+後台方面，使用telegram進行上傳照片的功能，把想傳的照片，加入底片名稱後，傳送給bot，它就會自動存入及顯示在前端的gallery中
+
+![上傳照片，Cpation填入底片名稱](../master/docs/uploadImage.png)
+上傳照片，Cpation填入底片名稱
+
+![就能從前台，看到該照片出現在對應的底片Gallery下](../master/docs/galleryUploaded.png)
+就能從前台，看到該照片出現在對應的底片Gallery下
+
+也可以透過bot得到當前某個底片下，有什麼照片
+
+![顯示底片下的照片清單](../master/docs/imageList.png)
+顯示底片下的照片清單
+
+如果要刪除照片，也可以透過指令直接刪除
+
+![透過指令刪除照片，及確認底片已被刪除](../master/docs/deleteImage.png)
+透過指令刪除照片，及確認底片已被刪除
+
+
+# TODO
+- 導入Circle CI自動佈署
+- 用Vue刻另一個功能較多的後台
