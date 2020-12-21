@@ -15,7 +15,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "64:ff:bd:b5:a4:31:f9:04:20:48:f7:f6:4d:24:8a:ad"
+            - "93:8e:a8:a5:c4:eb:c3:f8:4a:f1:01:18:c6:71:0a:50"
       - checkout
       - run: cp .env.example .env
       - run:
